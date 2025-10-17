@@ -1,0 +1,70 @@
+# =========================
+# ⚙️ Core / Build Artifacts
+# =========================
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
+*.local
+
+# Don't commit environment variables or secrets
+.env
+.env.*.local
+.env.local
+!.env.example
+
+# =========================
+# ⚙️ Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# =========================
+# ⚙️ Editor / System Files
+# =========================
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Visual Studio / JetBrains
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =========================
+# ⚙️ Optional: OS + Cache
+# =========================
+*.bak
+*.tmp
+*.cache
+*.lock
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# ⚙️ Dependency Lock Files (optional)
+# Uncomment if you don’t want to commit them
+# =========================
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# =========================
+# ⚙️ Miscellaneous
+# =========================
+*.tar.gz
+*.zip
+*.tgz
+*.rar
+*.7z

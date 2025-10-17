@@ -1,0 +1,1973 @@
+{
+	"info": {
+		"_postman_id": "df471424-02f1-46fd-b442-3547641c14a7",
+		"name": "E-commerce API",
+		"description": "Postman collection for Laravel E-commerce API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11455480",
+		"_collection_link": "https://coding-metors.postman.co/workspace/Coding-Metors-Workspace~a4042a7a-9ca1-415d-8758-dde5dfe8c9a0/collection/11455480-df471424-02f1-46fd-b442-3547641c14a7?action=share&source=collection_link&creator=11455480"
+	},
+	"item": [
+		{
+			"name": "Add to Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"product_id\": 18,\n  \"quantity\": 1,\n   \"user_id\":5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/cart/add",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cart",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_item_ids\": \"118,119\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/cart-items",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cart-items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store Address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"line1\": \"Sri Sai Residency, 403\",\n  \"line2\": \"Kukatpally\",\n  \"city\": \"Hyderabad\",\n  \"state\": \"TG\",\n  \"pincode\": \"500072\"\n//  \"user_id\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/address",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Checkout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTFmMDAxZjU0NDQ1YWJkY2E0MzVkZWIyN2YwZDJkMDU3ODNkMmFlZDFlZTFiNWM3Zjg2Mzk5MjBmMjZhYTFhNDU1MDY5MWZhODE4MWFjZmMiLCJpYXQiOjE3NTI3NDg5OTMuMDI3ODk5OTgwNTQ1MDQzOTQ1MzEyNSwibmJmIjoxNzUyNzQ4OTkzLjAyNzkwMTg4Nzg5MzY3Njc1NzgxMjUsImV4cCI6MTc4NDI4NDk5Mi4yOTE2MzkwODk1ODQzNTA1ODU5Mzc1LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.cZB5XtIqWVowzwtBVnBVbLfJm8YMsLuCQBLYKYcRoaoauCZvbbLGE-hHc9ZmpgL_QF-o4TnChtp4K-MM4_PKhw2xqgIZ861f_HKKFH0O-52o9H8TZi-HIKN97RyTjZxZIFxnNdsCetzbl__tnLWdVtZun9kNbaTHXAa1AZ0fu2SNcLnNJ7Lb0OIrgmO1Mbw2x01pOGCBdGauzyRF5ndRpE9xpRI4KQEwUnTYpPo4Jyg8RHP9DMUTf1vMdO1QI0fEsJZDEqKrGoRHd65bSD5N_QAc58ezRmPMQEqs33sLkCT2Tg6dYRCz6vL8y0fFQ-bfKmM5LO5OTLzjFWu-EC33es48uzNnNG0svhOLCMk34QtTybrGWZviLQsgo5E0XsaXVtbeDu5QUxA6akJD6b_f3EBApnCOMoL4vHbAfnVgMdabPOoFjBPC25HBXC0608mSRkxKDO_snW0yhFaf2BfEcJGaY-7pecOphkFdG9_6spI1aXeSrbwry9GqjsRzVlwGblHlxttHGDTBcMXu6e_hTPb2HucOksav8RjnNspBqMrBD184A4fzRCptAf2gP7vbdlOzQm_Ejxnmx4BEP1-UnFpF1W2IQi8_l1tUIF7z0oPmFq-izGPoOz5GsQerS1oG4dM2AvCXAdutpRdytNMB0MpKuyh8vNF3DpNMw7LitEw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"address_id\": 14,\n  \"payment_details\": \"Cash On Delivery\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/checkout",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Orders List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/orders",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Payment Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"payment_status\": \"paid\",\n  \"payment_details\": \"Cash On Delivery\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/order/95/payment",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"order",
+						"95",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Invoice",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/orders/95/invoice",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders",
+						"95",
+						"invoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Invoice",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/customer/95/invoice",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"customer",
+						"95",
+						"invoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get own user details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTFmMDAxZjU0NDQ1YWJkY2E0MzVkZWIyN2YwZDJkMDU3ODNkMmFlZDFlZTFiNWM3Zjg2Mzk5MjBmMjZhYTFhNDU1MDY5MWZhODE4MWFjZmMiLCJpYXQiOjE3NTI3NDg5OTMuMDI3ODk5OTgwNTQ1MDQzOTQ1MzEyNSwibmJmIjoxNzUyNzQ4OTkzLjAyNzkwMTg4Nzg5MzY3Njc1NzgxMjUsImV4cCI6MTc4NDI4NDk5Mi4yOTE2MzkwODk1ODQzNTA1ODU5Mzc1LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.cZB5XtIqWVowzwtBVnBVbLfJm8YMsLuCQBLYKYcRoaoauCZvbbLGE-hHc9ZmpgL_QF-o4TnChtp4K-MM4_PKhw2xqgIZ861f_HKKFH0O-52o9H8TZi-HIKN97RyTjZxZIFxnNdsCetzbl__tnLWdVtZun9kNbaTHXAa1AZ0fu2SNcLnNJ7Lb0OIrgmO1Mbw2x01pOGCBdGauzyRF5ndRpE9xpRI4KQEwUnTYpPo4Jyg8RHP9DMUTf1vMdO1QI0fEsJZDEqKrGoRHd65bSD5N_QAc58ezRmPMQEqs33sLkCT2Tg6dYRCz6vL8y0fFQ-bfKmM5LO5OTLzjFWu-EC33es48uzNnNG0svhOLCMk34QtTybrGWZviLQsgo5E0XsaXVtbeDu5QUxA6akJD6b_f3EBApnCOMoL4vHbAfnVgMdabPOoFjBPC25HBXC0608mSRkxKDO_snW0yhFaf2BfEcJGaY-7pecOphkFdG9_6spI1aXeSrbwry9GqjsRzVlwGblHlxttHGDTBcMXu6e_hTPb2HucOksav8RjnNspBqMrBD184A4fzRCptAf2gP7vbdlOzQm_Ejxnmx4BEP1-UnFpF1W2IQi8_l1tUIF7z0oPmFq-izGPoOz5GsQerS1oG4dM2AvCXAdutpRdytNMB0MpKuyh8vNF3DpNMw7LitEw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/user/user-details/6",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"user-details",
+						"6"
+					]
+				},
+				"description": "This API will fetch user details where auth token generated by user which we are sending in the request, if we use different auth token and different user id the give error message"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign address to customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTFmMDAxZjU0NDQ1YWJkY2E0MzVkZWIyN2YwZDJkMDU3ODNkMmFlZDFlZTFiNWM3Zjg2Mzk5MjBmMjZhYTFhNDU1MDY5MWZhODE4MWFjZmMiLCJpYXQiOjE3NTI3NDg5OTMuMDI3ODk5OTgwNTQ1MDQzOTQ1MzEyNSwibmJmIjoxNzUyNzQ4OTkzLjAyNzkwMTg4Nzg5MzY3Njc1NzgxMjUsImV4cCI6MTc4NDI4NDk5Mi4yOTE2MzkwODk1ODQzNTA1ODU5Mzc1LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.cZB5XtIqWVowzwtBVnBVbLfJm8YMsLuCQBLYKYcRoaoauCZvbbLGE-hHc9ZmpgL_QF-o4TnChtp4K-MM4_PKhw2xqgIZ861f_HKKFH0O-52o9H8TZi-HIKN97RyTjZxZIFxnNdsCetzbl__tnLWdVtZun9kNbaTHXAa1AZ0fu2SNcLnNJ7Lb0OIrgmO1Mbw2x01pOGCBdGauzyRF5ndRpE9xpRI4KQEwUnTYpPo4Jyg8RHP9DMUTf1vMdO1QI0fEsJZDEqKrGoRHd65bSD5N_QAc58ezRmPMQEqs33sLkCT2Tg6dYRCz6vL8y0fFQ-bfKmM5LO5OTLzjFWu-EC33es48uzNnNG0svhOLCMk34QtTybrGWZviLQsgo5E0XsaXVtbeDu5QUxA6akJD6b_f3EBApnCOMoL4vHbAfnVgMdabPOoFjBPC25HBXC0608mSRkxKDO_snW0yhFaf2BfEcJGaY-7pecOphkFdG9_6spI1aXeSrbwry9GqjsRzVlwGblHlxttHGDTBcMXu6e_hTPb2HucOksav8RjnNspBqMrBD184A4fzRCptAf2gP7vbdlOzQm_Ejxnmx4BEP1-UnFpF1W2IQi8_l1tUIF7z0oPmFq-izGPoOz5GsQerS1oG4dM2AvCXAdutpRdytNMB0MpKuyh8vNF3DpNMw7LitEw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"address_id\": 9\n}                                                       ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/assign-address",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"assign-address"
+					]
+				},
+				"description": "Adding the customer id to specific user which we send auth tekone"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customer Orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDgwZTYyZmViZTJiZDgxMjM4YWRiYzA5MmIxZTAwMmFmMTJmOThlMGNhYTRlZTljY2RjNDUwNjVmNWE4Nzc2MWZhODJlMjdmMjYxNjFkOWUiLCJpYXQiOjE3NTMwOTcwMTYuNjMxMTc5MDk0MzE0NTc1MTk1MzEyNSwibmJmIjoxNzUzMDk3MDE2LjYzMTE4MTk1NTMzNzUyNDQxNDA2MjUsImV4cCI6MTc4NDYzMzAxNS45MDE4MDExMDkzMTM5NjQ4NDM3NSwic3ViIjoiNSIsInNjb3BlcyI6W119.LPE7HYdgy7D2tuvoZrTXhLjAE6fOHcOrg9968pvW1QnMLcxgw2wL9qnpMmDhkbcuA_L6k5Dci4LuX6Q8uL3tbMz_WSXp7kZGwcACiMXosKdTa67FKVQLx369WClRZC_HrNd_vBGhdTTbo4tusDIrAwu9x6PffHV5yfSxWpb9TI1lFZsQbDTQ1RyLfoyAfo8vlKYhKjwLaGLk30C8FtGYOvln-7B81WG2TD8AGWaAl50VDqbpuCKSWIXEbIP-r8g7sDKscArYPJcT_xoczooXDIJUGzQIh7by8IYeCwS8OQ2V2bKM_SX5NoKRiIkE4Rp4Mf52gKJp0xM2k6T4PJpJlHILSXndCT-JdVxC0xpKpTdBDhh_nMGdZLv3k3RdRFikLgcjWmKM_h6YqzCvNxNZApjQbIqxfre5lL-fgXpf28oR9pZ86kW-YQrtW_7JJDgH-4CcjoZX_-q9xilQjSCrVDcd6OBDOGPeRL9owHG7sE1pCtfJ7pkG5HHppO9Ju3wxSeAOglMB6tkAKCMfIZGkWu1lL7vF6PO83Bw5T_5WsPFQyKqzgK7MrQl8oCEJDMpvnYKJoTO1_Z9wVDnq5_WXpwnUpOSJe7zNi3zv1oXxeOGIMaSq7R5qrikjkDY9FQNLTmgCSh0grvM5Eiw_wnBFlsjVOJH33edAjYvp_hKtW80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/orders",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				},
+				"description": "Using the auth token fetch the user id and for that user orders fetch and send in the json format."
+			},
+			"response": []
+		},
+		{
+			"name": "Assigning cart ids to logged in users ",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTFmMDAxZjU0NDQ1YWJkY2E0MzVkZWIyN2YwZDJkMDU3ODNkMmFlZDFlZTFiNWM3Zjg2Mzk5MjBmMjZhYTFhNDU1MDY5MWZhODE4MWFjZmMiLCJpYXQiOjE3NTI3NDg5OTMuMDI3ODk5OTgwNTQ1MDQzOTQ1MzEyNSwibmJmIjoxNzUyNzQ4OTkzLjAyNzkwMTg4Nzg5MzY3Njc1NzgxMjUsImV4cCI6MTc4NDI4NDk5Mi4yOTE2MzkwODk1ODQzNTA1ODU5Mzc1LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.cZB5XtIqWVowzwtBVnBVbLfJm8YMsLuCQBLYKYcRoaoauCZvbbLGE-hHc9ZmpgL_QF-o4TnChtp4K-MM4_PKhw2xqgIZ861f_HKKFH0O-52o9H8TZi-HIKN97RyTjZxZIFxnNdsCetzbl__tnLWdVtZun9kNbaTHXAa1AZ0fu2SNcLnNJ7Lb0OIrgmO1Mbw2x01pOGCBdGauzyRF5ndRpE9xpRI4KQEwUnTYpPo4Jyg8RHP9DMUTf1vMdO1QI0fEsJZDEqKrGoRHd65bSD5N_QAc58ezRmPMQEqs33sLkCT2Tg6dYRCz6vL8y0fFQ-bfKmM5LO5OTLzjFWu-EC33es48uzNnNG0svhOLCMk34QtTybrGWZviLQsgo5E0XsaXVtbeDu5QUxA6akJD6b_f3EBApnCOMoL4vHbAfnVgMdabPOoFjBPC25HBXC0608mSRkxKDO_snW0yhFaf2BfEcJGaY-7pecOphkFdG9_6spI1aXeSrbwry9GqjsRzVlwGblHlxttHGDTBcMXu6e_hTPb2HucOksav8RjnNspBqMrBD184A4fzRCptAf2gP7vbdlOzQm_Ejxnmx4BEP1-UnFpF1W2IQi8_l1tUIF7z0oPmFq-izGPoOz5GsQerS1oG4dM2AvCXAdutpRdytNMB0MpKuyh8vNF3DpNMw7LitEw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cart_ids\": \"108,109\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/assign-cart",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"assign-cart"
+					]
+				},
+				"description": "Assigning the cart ids to user id who logged in after cart add, we assign using the auth token take user id and assign cart ids to user_id"
+			},
+			"response": []
+		},
+		{
+			"name": "Change password",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTFmMDAxZjU0NDQ1YWJkY2E0MzVkZWIyN2YwZDJkMDU3ODNkMmFlZDFlZTFiNWM3Zjg2Mzk5MjBmMjZhYTFhNDU1MDY5MWZhODE4MWFjZmMiLCJpYXQiOjE3NTI3NDg5OTMuMDI3ODk5OTgwNTQ1MDQzOTQ1MzEyNSwibmJmIjoxNzUyNzQ4OTkzLjAyNzkwMTg4Nzg5MzY3Njc1NzgxMjUsImV4cCI6MTc4NDI4NDk5Mi4yOTE2MzkwODk1ODQzNTA1ODU5Mzc1LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.cZB5XtIqWVowzwtBVnBVbLfJm8YMsLuCQBLYKYcRoaoauCZvbbLGE-hHc9ZmpgL_QF-o4TnChtp4K-MM4_PKhw2xqgIZ861f_HKKFH0O-52o9H8TZi-HIKN97RyTjZxZIFxnNdsCetzbl__tnLWdVtZun9kNbaTHXAa1AZ0fu2SNcLnNJ7Lb0OIrgmO1Mbw2x01pOGCBdGauzyRF5ndRpE9xpRI4KQEwUnTYpPo4Jyg8RHP9DMUTf1vMdO1QI0fEsJZDEqKrGoRHd65bSD5N_QAc58ezRmPMQEqs33sLkCT2Tg6dYRCz6vL8y0fFQ-bfKmM5LO5OTLzjFWu-EC33es48uzNnNG0svhOLCMk34QtTybrGWZviLQsgo5E0XsaXVtbeDu5QUxA6akJD6b_f3EBApnCOMoL4vHbAfnVgMdabPOoFjBPC25HBXC0608mSRkxKDO_snW0yhFaf2BfEcJGaY-7pecOphkFdG9_6spI1aXeSrbwry9GqjsRzVlwGblHlxttHGDTBcMXu6e_hTPb2HucOksav8RjnNspBqMrBD184A4fzRCptAf2gP7vbdlOzQm_Ejxnmx4BEP1-UnFpF1W2IQi8_l1tUIF7z0oPmFq-izGPoOz5GsQerS1oG4dM2AvCXAdutpRdytNMB0MpKuyh8vNF3DpNMw7LitEw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"current_password\": \"12345678\",\r\n    \"new_password\": \"Admin@123\",\r\n    \"new_password_confirmation\": \"Admin@123\"\r\n}"
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/user/change-password",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"change-password"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Successfull operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"current_password\": \"password@123\",\r\n    \"new_password\": \"password@12345\",\r\n    \"new_password_confirmation\": \"password@12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profile/change-password?_method=PATCH",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile",
+								"change-password"
+							],
+							"query": [
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"description": "(Required)"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.19.5"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.10"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 06 Feb 2023 06:11:41 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"The password updated successfully.\"\n}"
+				},
+				{
+					"name": "Unprocessable content (Incorrect current password)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"current_password\": \"password\",\r\n    \"new_password\": \"password@12345\",\r\n    \"new_password_confirmation\": \"password@12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profile/change-password?_method=PATCH",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile",
+								"change-password"
+							],
+							"query": [
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"description": "(Required)"
+								}
+							]
+						}
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.19.5"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.10"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 06 Feb 2023 06:12:43 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 422,\n    \"message\": \"The given data was invalid\",\n    \"errors\": {\n        \"current_password\": [\n            \"The password is incorrect.\"\n        ]\n    }\n}"
+				},
+				{
+					"name": "Unprocessable content (New password does not follow the password rules)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"current_password\": \"password@12345\",\r\n    \"new_password\": \"abc\",\r\n    \"new_password_confirmation\": \"abc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profile/change-password?_method=PATCH",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile",
+								"change-password"
+							],
+							"query": [
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"description": "(Required)"
+								}
+							]
+						}
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.19.5"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.10"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 06 Feb 2023 06:22:30 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "57"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 422,\n    \"message\": \"The given data was invalid\",\n    \"errors\": {\n        \"new_password\": [\n            \"The new password must be at least 8 characters.\",\n            \"The new password must contain at least one symbol.\",\n            \"The new password must contain at least one number.\"\n        ]\n    }\n}"
+				},
+				{
+					"name": "Unprocessable content (New password and current password must be different)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"current_password\": \"password@12345\",\r\n    \"new_password\": \"password@12345\",\r\n    \"new_password_confirmation\": \"password@12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/profile/change-password?_method=PATCH",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile",
+								"change-password"
+							],
+							"query": [
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"description": "(Required)"
+								}
+							]
+						}
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.19.5"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.1.10"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 06 Feb 2023 06:24:49 GMT"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 422,\n    \"message\": \"The given data was invalid\",\n    \"errors\": {\n        \"new_password\": [\n            \"The new password and current password must be different.\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Forgot password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"suresh@konda.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/forgotPassword/email",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"forgotPassword",
+						"email"
+					]
+				},
+				"description": "Forgot password send email link to customer email"
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password Code Confirmation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"suresh@konda.com\",\n    \"code\": \"GWIEGHVMF9H5\",\n    \"technology\": \"app\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/forgotPassword/code",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"forgotPassword",
+						"code"
+					]
+				},
+				"description": "After email send for code confirmation we need to send code, email id and techmology as app, it will confirm code."
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password reset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"suresh@konda.com\",\n    \"password\": \"Admin@123\",\n    \"password_confirmation\": \"Admin@123\",\n    \"technology\": \"app\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/forgotPassword/reset",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"forgotPassword",
+						"reset"
+					]
+				},
+				"description": "After code confirmation we need to reset the password with new password, we need to send new password, confirm password and email id with this API."
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "info@info.in",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "info@info.in",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Welcome1234@$",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "33xyn7BixPNgYai3dna9tBQKnHLz2piER7gBF5Dd",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/user/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin get all Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDQ1OGRlMzdkMWU2ZWU5ZWNkNTA4OTkyZmNkMDUyMmNmMjYyMjM3ZDkzOGVjNjRjNTliNzFiZTFiYzA5OTVhZTljZjUxNDk2NWIxNDYxNWYiLCJpYXQiOjE3NTMxMDIwNTMuMjk1MjUzMDM4NDA2MzcyMDcwMzEyNSwibmJmIjoxNzUzMTAyMDUzLjI5NTI1NDk0NTc1NTAwNDg4MjgxMjUsImV4cCI6MTc4NDYzODA1Mi41ODUxNTE5MTA3ODE4NjAzNTE1NjI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.CTVUoOE8593m0vuZIotJkjd8CSp3_NyN7L-bGa_OmlsiMMQolXWwQk38QiB60ch6BlD8PesYE6nD5OA1UOSKgUKAYjci73W3ellXmnGAP5AZIZzFm5eqjB9p7GEeTqfgzmlaIuhQsWR7McvAp7TkmZ1pUApu3rrsrDD1ZsrAiNpeK_5MuLqrEP9WiFPGkf0b_8Y3Vozj4l6RyA2aXWSmQb1hEUn5hA5OBR1IWuXc1GhWaCs93kTr4esRjYxm0LJj6xAz9KSgny5zkyFb2YFct6xF3HZtg0Pe5ibVFqsz5SvTALXOKTaktBY-mtpXdF62zmOZeFyqci0UHxiHG1QD4LCvabZbdmzTVHb7cAJcUIU1Sf10EdkK69ilBhjXPGbfRWAkq8ITXQp0fV4R5L7jSaFIEs2q4-Od728CVUzYnljTJf7SrD4kr9VwhE1mrtTdDp7cNbTkwIwc4K657HhuSe9yva3QUIwY_xleWo7UQ7R89cubSmQd_Rk9FEpgeVp87k5rcUNEXOMMBF_CCXvm6yUOah0XvaXHzEBh0yaiT-NSPhLj4PQfKyOMv7Rub0kU8lnkLjFe8FrPTNRJYXDSfgjk1ZPRidcTytJF5kFqXCAJqBGFx3Gbjq3qZ0-r-P5efqoUnCnOs4tIpu9tLEbyQC_AnoDkJG8krBy6lTsY4Rg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/all-customers",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"all-customers"
+					]
+				},
+				"description": "Get all users for admin pannel"
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Register by Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDQ1OGRlMzdkMWU2ZWU5ZWNkNTA4OTkyZmNkMDUyMmNmMjYyMjM3ZDkzOGVjNjRjNTliNzFiZTFiYzA5OTVhZTljZjUxNDk2NWIxNDYxNWYiLCJpYXQiOjE3NTMxMDIwNTMuMjk1MjUzMDM4NDA2MzcyMDcwMzEyNSwibmJmIjoxNzUzMTAyMDUzLjI5NTI1NDk0NTc1NTAwNDg4MjgxMjUsImV4cCI6MTc4NDYzODA1Mi41ODUxNTE5MTA3ODE4NjAzNTE1NjI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.CTVUoOE8593m0vuZIotJkjd8CSp3_NyN7L-bGa_OmlsiMMQolXWwQk38QiB60ch6BlD8PesYE6nD5OA1UOSKgUKAYjci73W3ellXmnGAP5AZIZzFm5eqjB9p7GEeTqfgzmlaIuhQsWR7McvAp7TkmZ1pUApu3rrsrDD1ZsrAiNpeK_5MuLqrEP9WiFPGkf0b_8Y3Vozj4l6RyA2aXWSmQb1hEUn5hA5OBR1IWuXc1GhWaCs93kTr4esRjYxm0LJj6xAz9KSgny5zkyFb2YFct6xF3HZtg0Pe5ibVFqsz5SvTALXOKTaktBY-mtpXdF62zmOZeFyqci0UHxiHG1QD4LCvabZbdmzTVHb7cAJcUIU1Sf10EdkK69ilBhjXPGbfRWAkq8ITXQp0fV4R5L7jSaFIEs2q4-Od728CVUzYnljTJf7SrD4kr9VwhE1mrtTdDp7cNbTkwIwc4K657HhuSe9yva3QUIwY_xleWo7UQ7R89cubSmQd_Rk9FEpgeVp87k5rcUNEXOMMBF_CCXvm6yUOah0XvaXHzEBh0yaiT-NSPhLj4PQfKyOMv7Rub0kU8lnkLjFe8FrPTNRJYXDSfgjk1ZPRidcTytJF5kFqXCAJqBGFx3Gbjq3qZ0-r-P5efqoUnCnOs4tIpu9tLEbyQC_AnoDkJG8krBy6lTsY4Rg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"suresh1\",\n    \"last_name\": \"konda1\",\n    \"username\": \"sureshkumar.konda@gmail.com\",\n    \"email\": \"sureshkumar.konda@gmail.com\",\n    \"phone\": \"7799431314\",\n    \"password\": \"12345678\",\n    \"password_confirmation\": \"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/customer-register",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"customer-register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User permanent Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDQ1OGRlMzdkMWU2ZWU5ZWNkNTA4OTkyZmNkMDUyMmNmMjYyMjM3ZDkzOGVjNjRjNTliNzFiZTFiYzA5OTVhZTljZjUxNDk2NWIxNDYxNWYiLCJpYXQiOjE3NTMxMDIwNTMuMjk1MjUzMDM4NDA2MzcyMDcwMzEyNSwibmJmIjoxNzUzMTAyMDUzLjI5NTI1NDk0NTc1NTAwNDg4MjgxMjUsImV4cCI6MTc4NDYzODA1Mi41ODUxNTE5MTA3ODE4NjAzNTE1NjI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.CTVUoOE8593m0vuZIotJkjd8CSp3_NyN7L-bGa_OmlsiMMQolXWwQk38QiB60ch6BlD8PesYE6nD5OA1UOSKgUKAYjci73W3ellXmnGAP5AZIZzFm5eqjB9p7GEeTqfgzmlaIuhQsWR7McvAp7TkmZ1pUApu3rrsrDD1ZsrAiNpeK_5MuLqrEP9WiFPGkf0b_8Y3Vozj4l6RyA2aXWSmQb1hEUn5hA5OBR1IWuXc1GhWaCs93kTr4esRjYxm0LJj6xAz9KSgny5zkyFb2YFct6xF3HZtg0Pe5ibVFqsz5SvTALXOKTaktBY-mtpXdF62zmOZeFyqci0UHxiHG1QD4LCvabZbdmzTVHb7cAJcUIU1Sf10EdkK69ilBhjXPGbfRWAkq8ITXQp0fV4R5L7jSaFIEs2q4-Od728CVUzYnljTJf7SrD4kr9VwhE1mrtTdDp7cNbTkwIwc4K657HhuSe9yva3QUIwY_xleWo7UQ7R89cubSmQd_Rk9FEpgeVp87k5rcUNEXOMMBF_CCXvm6yUOah0XvaXHzEBh0yaiT-NSPhLj4PQfKyOMv7Rub0kU8lnkLjFe8FrPTNRJYXDSfgjk1ZPRidcTytJF5kFqXCAJqBGFx3Gbjq3qZ0-r-P5efqoUnCnOs4tIpu9tLEbyQC_AnoDkJG8krBy6lTsY4Rg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/users/delete/12",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"users",
+						"delete",
+						"12"
+					]
+				},
+				"description": "Soft delete of user from user table"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user softdelete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDQ1OGRlMzdkMWU2ZWU5ZWNkNTA4OTkyZmNkMDUyMmNmMjYyMjM3ZDkzOGVjNjRjNTliNzFiZTFiYzA5OTVhZTljZjUxNDk2NWIxNDYxNWYiLCJpYXQiOjE3NTMxMDIwNTMuMjk1MjUzMDM4NDA2MzcyMDcwMzEyNSwibmJmIjoxNzUzMTAyMDUzLjI5NTI1NDk0NTc1NTAwNDg4MjgxMjUsImV4cCI6MTc4NDYzODA1Mi41ODUxNTE5MTA3ODE4NjAzNTE1NjI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.CTVUoOE8593m0vuZIotJkjd8CSp3_NyN7L-bGa_OmlsiMMQolXWwQk38QiB60ch6BlD8PesYE6nD5OA1UOSKgUKAYjci73W3ellXmnGAP5AZIZzFm5eqjB9p7GEeTqfgzmlaIuhQsWR7McvAp7TkmZ1pUApu3rrsrDD1ZsrAiNpeK_5MuLqrEP9WiFPGkf0b_8Y3Vozj4l6RyA2aXWSmQb1hEUn5hA5OBR1IWuXc1GhWaCs93kTr4esRjYxm0LJj6xAz9KSgny5zkyFb2YFct6xF3HZtg0Pe5ibVFqsz5SvTALXOKTaktBY-mtpXdF62zmOZeFyqci0UHxiHG1QD4LCvabZbdmzTVHb7cAJcUIU1Sf10EdkK69ilBhjXPGbfRWAkq8ITXQp0fV4R5L7jSaFIEs2q4-Od728CVUzYnljTJf7SrD4kr9VwhE1mrtTdDp7cNbTkwIwc4K657HhuSe9yva3QUIwY_xleWo7UQ7R89cubSmQd_Rk9FEpgeVp87k5rcUNEXOMMBF_CCXvm6yUOah0XvaXHzEBh0yaiT-NSPhLj4PQfKyOMv7Rub0kU8lnkLjFe8FrPTNRJYXDSfgjk1ZPRidcTytJF5kFqXCAJqBGFx3Gbjq3qZ0-r-P5efqoUnCnOs4tIpu9tLEbyQC_AnoDkJG8krBy6lTsY4Rg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/users/destroy/12",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"users",
+						"destroy",
+						"12"
+					]
+				},
+				"description": "Complete Delete of soft deleted users use this API"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cart Items",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_item_ids\": \"114\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/cart-delete",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cart-delete"
+					]
+				},
+				"description": "Delete cart Items from cart."
+			},
+			"response": []
+		},
+		{
+			"name": "Update User from Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDQ1OGRlMzdkMWU2ZWU5ZWNkNTA4OTkyZmNkMDUyMmNmMjYyMjM3ZDkzOGVjNjRjNTliNzFiZTFiYzA5OTVhZTljZjUxNDk2NWIxNDYxNWYiLCJpYXQiOjE3NTMxMDIwNTMuMjk1MjUzMDM4NDA2MzcyMDcwMzEyNSwibmJmIjoxNzUzMTAyMDUzLjI5NTI1NDk0NTc1NTAwNDg4MjgxMjUsImV4cCI6MTc4NDYzODA1Mi41ODUxNTE5MTA3ODE4NjAzNTE1NjI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.CTVUoOE8593m0vuZIotJkjd8CSp3_NyN7L-bGa_OmlsiMMQolXWwQk38QiB60ch6BlD8PesYE6nD5OA1UOSKgUKAYjci73W3ellXmnGAP5AZIZzFm5eqjB9p7GEeTqfgzmlaIuhQsWR7McvAp7TkmZ1pUApu3rrsrDD1ZsrAiNpeK_5MuLqrEP9WiFPGkf0b_8Y3Vozj4l6RyA2aXWSmQb1hEUn5hA5OBR1IWuXc1GhWaCs93kTr4esRjYxm0LJj6xAz9KSgny5zkyFb2YFct6xF3HZtg0Pe5ibVFqsz5SvTALXOKTaktBY-mtpXdF62zmOZeFyqci0UHxiHG1QD4LCvabZbdmzTVHb7cAJcUIU1Sf10EdkK69ilBhjXPGbfRWAkq8ITXQp0fV4R5L7jSaFIEs2q4-Od728CVUzYnljTJf7SrD4kr9VwhE1mrtTdDp7cNbTkwIwc4K657HhuSe9yva3QUIwY_xleWo7UQ7R89cubSmQd_Rk9FEpgeVp87k5rcUNEXOMMBF_CCXvm6yUOah0XvaXHzEBh0yaiT-NSPhLj4PQfKyOMv7Rub0kU8lnkLjFe8FrPTNRJYXDSfgjk1ZPRidcTytJF5kFqXCAJqBGFx3Gbjq3qZ0-r-P5efqoUnCnOs4tIpu9tLEbyQC_AnoDkJG8krBy6lTsY4Rg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"sureshOne\",\n    \"last_name\": \"kondaONe\",\n    \"email\": \"sureshkumar.konda0@gmail.com\",\n    \"phone\": \"7799431314\",\n    \"is_active\": 1,\n    \"dob\": \"2000-04-20\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/users/update/5",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"users",
+						"update",
+						"5"
+					]
+				},
+				"description": "Update user from admin using auth token"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all orders with address and items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNDQ1OGRlMzdkMWU2ZWU5ZWNkNTA4OTkyZmNkMDUyMmNmMjYyMjM3ZDkzOGVjNjRjNTliNzFiZTFiYzA5OTVhZTljZjUxNDk2NWIxNDYxNWYiLCJpYXQiOjE3NTMxMDIwNTMuMjk1MjUzMDM4NDA2MzcyMDcwMzEyNSwibmJmIjoxNzUzMTAyMDUzLjI5NTI1NDk0NTc1NTAwNDg4MjgxMjUsImV4cCI6MTc4NDYzODA1Mi41ODUxNTE5MTA3ODE4NjAzNTE1NjI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.CTVUoOE8593m0vuZIotJkjd8CSp3_NyN7L-bGa_OmlsiMMQolXWwQk38QiB60ch6BlD8PesYE6nD5OA1UOSKgUKAYjci73W3ellXmnGAP5AZIZzFm5eqjB9p7GEeTqfgzmlaIuhQsWR7McvAp7TkmZ1pUApu3rrsrDD1ZsrAiNpeK_5MuLqrEP9WiFPGkf0b_8Y3Vozj4l6RyA2aXWSmQb1hEUn5hA5OBR1IWuXc1GhWaCs93kTr4esRjYxm0LJj6xAz9KSgny5zkyFb2YFct6xF3HZtg0Pe5ibVFqsz5SvTALXOKTaktBY-mtpXdF62zmOZeFyqci0UHxiHG1QD4LCvabZbdmzTVHb7cAJcUIU1Sf10EdkK69ilBhjXPGbfRWAkq8ITXQp0fV4R5L7jSaFIEs2q4-Od728CVUzYnljTJf7SrD4kr9VwhE1mrtTdDp7cNbTkwIwc4K657HhuSe9yva3QUIwY_xleWo7UQ7R89cubSmQd_Rk9FEpgeVp87k5rcUNEXOMMBF_CCXvm6yUOah0XvaXHzEBh0yaiT-NSPhLj4PQfKyOMv7Rub0kU8lnkLjFe8FrPTNRJYXDSfgjk1ZPRidcTytJF5kFqXCAJqBGFx3Gbjq3qZ0-r-P5efqoUnCnOs4tIpu9tLEbyQC_AnoDkJG8krBy6lTsY4Rg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/orders?user_id=5",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "5"
+						}
+					]
+				},
+				"description": "https://api.sartree.com/api/v1/admin/orders?user_id=5 this is for particular user orders, https://api.sartree.com/api/v1/admin/orders this will get all orders from admin"
+			},
+			"response": []
+		},
+		{
+			"name": "View Order from admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/orders/95",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"orders",
+						"95"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order status Update by Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"order_status\": \"Delivered\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/order/95/status",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"order",
+						"95",
+						"status"
+					]
+				},
+				"description": "Update the order status, we can add payment_details if we want to update payment_details"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Addresses Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/addresses",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"addresses"
+					]
+				},
+				"description": "if we pass ?user_id then it will give particular user address details otherwise it will display all addresses"
+			},
+			"response": []
+		},
+		{
+			"name": "View Address By Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/address/9",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"address",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Address Update by Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"line1\": \"Sri Sai Residency, #403\",\n  \"line2\": \"Kukatpally\",\n  \"city\": \"Hyderabad1\",\n  \"state\": \"TG1\",\n  \"pincode\": \"500073\",\n  \"user_id\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/addresses/9",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"addresses",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Address from admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"line1\": \"Sri Sai Residency, #403\",\n  \"line2\": \"Allwyn Colony, Kukatpally\",\n  \"city\": \"Hyderabad\",\n  \"state\": \"TG\",\n  \"pincode\": \"500072\",\n  \"user_id\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/new-addresses",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"new-addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Address from admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/delete-address/9",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"delete-address",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/product",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new product by admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"main_category_id\": 6,\n    \"child_category_id\": 7,\n    \"title\": \"Sri lalitha green 25kg sonamasoori rice bag\",\n    \"price\": 1450,\n    \"tax_amount\": 200,\n    \"tax_percentage\": 18,\n    \"discount\": null,\n    \"discount_amount\": null,\n    \"description\": \"2_4, Home delivery available, Venkateshwara swamy, 101/2/NR, Venkateshwara Swamy Temple Rd, Gandhi nagar, Uppal, Hyderabad 13.2 km · Open ⋅ Closes 10 pm\",\n    \"status\": 1,\n    \"availability\": 100,\n    \"quantity\": 100,\n    \"image\": \"https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQuQ_Qh1kg-jkQORAQc6CZhmzvMVao0UywIRZguXh2jRi5kpvecppapJZPlq2lnrYs9PTJftzHDnUpPt0ONT1IDfez6ln6gen7-AQ5Beh4ns3nV0HU3AnN3ew\",\n    \"weight\": \"kg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/product/new-product",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"product",
+						"new-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Update By Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"main_category_id\": 6,\n    \"child_category_id\": 7,\n    \"title\": \"Sri lalitha green 25kg sonamasoori rice bag\",\n    \"price\": 1450,\n    \"tax_amount\": 200,\n    \"tax_percentage\": 18,\n    \"discount\": null,\n    \"discount_amount\": null,\n    \"description\": \"2_4, Home delivery available, Venkateshwara swamy, 101/2/NR, Venkateshwara Swamy Temple Rd, Gandhi nagar, Uppal, Hyderabad 13.2 km · Open ⋅ Closes 10 pm\",\n    \"status\": 1,\n    \"availability\": 100,\n    \"quantity\": 100,\n    \"image\": \"https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQuQ_Qh1kg-jkQORAQc6CZhmzvMVao0UywIRZguXh2jRi5kpvecppapJZPlq2lnrYs9PTJftzHDnUpPt0ONT1IDfez6ln6gen7-AQ5Beh4ns3nV0HU3AnN3ew\",\n    \"weight\": \"kg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/product/update/22",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"product",
+						"update",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product from admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/product/delete/22",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"product",
+						"delete",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/productCategory?name=titles",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"productCategory"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "titles"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Category By Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Basmati Rice\",\n    \"category_pic\": \"https://m.media-amazon.com/images/I/91HJCEqYwCL._SX522_.jpg\",\n    \"staus\": 1,\n    \"parent_id\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/productCategory/new-category",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"productCategory",
+						"new-category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Category By Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Basmati Rice UPDATE\",\n    \"category_pic\": \"https://m.media-amazon.com/images/I/91HJCEqYwCL._SX522_.jpg\",\n    \"staus\": 1,\n    \"parent_id\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/productCategory/update/10",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"productCategory",
+						"update",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Category by Admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2E3YTcxMTg3MmQ1OGI0ZjQ4NjFmZDI5MmQ2ZTUxYTM5NzZkNjZhMjhhMmU3ODAyYzVjMTE5NTg3MWZjOThiM2M5YmVlYjE4OTZiN2UwNmQiLCJpYXQiOjE3NTMxNzA0MDQuODE5MDk3MDQyMDgzNzQwMjM0Mzc1LCJuYmYiOjE3NTMxNzA0MDQuODE5MDk5OTAzMTA2Njg5NDUzMTI1LCJleHAiOjE3ODQ3MDY0MDQuMDU3NjcyMDIzNzczMTkzMzU5Mzc1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UkKCGy9Tc-VlD39orqdOY7A9UbuXsepVZJVoOS5aJ6dJTrFctwlUNhuLoyUK8PHBEHev7IkeuOoHgohiQ0zRX4E6xSzX8ZoWZ0qFXCswJqOxo7ZWsFlV31hheuYA9wYcfSmFyufYwtpk6c6Eunsa0bw604Evsds7dHalqMNFFs5XDJU-M8d5UY_iDFDX1kUGNf-eb2Y0qrEghXg_oOSFc4glcadQ3A5iq4SltOU7mvXE352rgA1K3MAeJ0QHhcKtumNWW0mep8WPUDiOu4DU9mjNuwKDdGTFNVDW2sDCVBth4AEV0Y_ChnO0a8lSZn_wW_MevLO7rOEmCkXLwpM529LBQELbeXyiEBFE81rrsu87SiSCQl6n4OMFW0Ed0aPp0nJj7uNyjf_MuKKM9qjSvraXPiFpI-K3ZQXbd0VUoiIgkmedRqxIHujgwOx1jAJXilAvCzu0ODO6UOcPbEVKOaNhdDAj1QdBuMe4zmzp_33x0gFZFN5HSGDhkxs6qocwiTWseCQoR81jT75EUlty9dse_uakeqZTtBvL8-VMm-IAT1SzFHGYHa3FHMAWnb_qV1_-YMWTb580sO3zJhixIcImInt6cq6nOrsdHxiZ8rCvoSgt5B2xFFujzXU4QvN0KImCQl2Loj48U1djbB35Yx2hNGSlGQus1p7ryE53ack",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/admin/productCategory/delete/10",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"productCategory",
+						"delete",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"sureshkumar1\",\n    \"last_name\": \"konda1\",\n    \"username\": \"sureshkumar.konda110@gmail.com\",\n    \"email\": \"sureshkumar.konda110@gmail.com\",\n    \"phone\": \"7799431314\",\n    \"password\": \"12345678\",\n    \"password_confirmation\": \"12345678\",\n    \"sys_admin\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/user/register",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cistomer Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "sureshkumar.konda110@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "sureshkumar.konda110@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345678",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "33xyn7BixPNgYai3dna9tBQKnHLz2piER7gBF5Dd",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.sartree.com/api/v1/user/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"sartree",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000"
+		},
+		{
+			"key": "token",
+			"value": "your_jwt_token"
+		}
+	]
+}

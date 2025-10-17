@@ -1,0 +1,504 @@
+.about-container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about-split {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.about-image {
+  background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&fit=crop') center/cover no-repeat;
+  height: 300px;
+  border-radius: 0 0 20px 20px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 0 0 20px 20px;
+}
+
+.about-content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 20px;
+  margin: -60px 20px 40px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.about-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.lead-text {
+  font-size: 1.25rem;
+  color: #555555;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 20px;
+  background: #e0e7ff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(46, 49, 146, 0.2);
+  transition: transform 0.3s ease;
+  flex: 1;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(46, 49, 146, 0.4);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2e3192;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  color: #2c3e50;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #2e3192;
+  font-weight: 700;
+}
+
+.section-header p {
+  color: #555555;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.mission-section {
+  padding: 60px 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  margin: 0 20px 40px 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.mission-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  text-align: center;
+}
+
+.mission-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #2e3192;
+  font-weight: 700;
+}
+
+.mission-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555555;
+  opacity: 0.9;
+  max-width: 700px;
+}
+
+.mission-image img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(46, 49, 146, 0.2);
+}
+
+.team-section {
+  padding: 60px 20px;
+  background: #f0f4ff;
+  border-radius: 20px;
+  margin: 0 20px 40px 20px;
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-card {
+  background: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(46, 49, 146, 0.1);
+  transition: transform 0.3s ease;
+  flex: 1 1 280px;
+  max-width: 300px;
+}
+
+.team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(46, 49, 146, 0.3);
+}
+
+.team-image {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 15px 15px 0 0;
+}
+
+.team-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.team-card:hover .team-image img {
+  transform: scale(1.05);
+}
+
+.team-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.team-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.team-info .position {
+  display: block;
+  color: #2e3192;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.team-info p {
+  color: #555555;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .about-split {
+    flex-direction: column;
+  }
+
+  .about-image {
+    height: 250px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .about-content {
+    margin: -50px 10px 30px 10px;
+    padding: 30px 15px;
+    border-radius: 15px;
+  }
+
+  .mission-content {
+    flex-direction: column;
+  }
+
+  .contact-grid {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .stats-grid {
+    flex-direction: column;
+  }
+
+  .stat-item {
+    margin-bottom: 20px;
+  }
+
+  .values-grid {
+    flex-direction: column;
+  }
+
+  .team-grid {
+    flex-direction: column;
+  }
+}
+
+/* General container */
+.about-container.redesigned {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px 64px 16px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f9fafb;
+}
+
+.about-section {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  margin-bottom: 32px;
+  padding: 32px 24px;
+}
+
+.about-section h1, .about-section h2 {
+  margin-bottom: 12px;
+  color: #1a202c;
+  font-weight: 700;
+}
+
+.about-section h1 {
+  font-size: 2.2rem;
+}
+
+.about-section h2 {
+  font-size: 1.5rem;
+  border-left: 4px solid #4f46e5;
+  padding-left: 12px;
+}
+
+.about-section h3 {
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: #374151;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+}
+
+/* Overview grid */
+.overview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.overview-details {
+  flex: 2;
+  min-width: 260px;
+}
+
+.overview-details ul {
+  margin: 0 0 10px 0;
+  padding-left: 18px;
+}
+
+.overview-image {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overview-image img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+/* Certifications */
+.certifications-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  margin-bottom: 18px;
+}
+.cert-item {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  color: #2563eb;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.cert-icon {
+  margin-right: 8px;
+  color: #22c55e;
+  font-size: 1.3em;
+}
+
+.tech-details {
+  color: #475569;
+  font-size: 1rem;
+}
+
+/* Product Portfolio */
+.product-details ul {
+  list-style: none;
+  padding: 0;
+}
+.product-details li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  color: #334155;
+}
+.rice-icon {
+  color: #f59e42;
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+.packaging-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 6px;
+}
+.packaging-list li {
+  background: #e0e7ff;
+  color: #3730a3;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.98em;
+}
+
+/* Market Stats */
+.market-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 18px;
+}
+.stat-item {
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 16px 24px;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.stat-number {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #4f46e5;
+}
+.stat-label {
+  color: #64748b;
+  font-size: 0.98rem;
+}
+
+/* Philosophy */
+.philosophy {
+  background: linear-gradient(90deg, #e0e7ff 0%, #f1f5f9 100%);
+  border-left: 5px solid #4f46e5;
+}
+
+/* Other Sectors */
+.sectors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 18px;
+}
+.sector-card {
+  background: #f1f5f9;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  padding: 18px 20px;
+  flex: 1 1 220px;
+  min-width: 200px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.sector-icon {
+  color: #4f46e5;
+  margin-top: 2px;
+}
+.sector-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.08rem;
+  color: #1e293b;
+}
+.sector-info p {
+  color: #475569;
+  font-size: 0.98rem;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .overview-grid, .market-stats, .sectors-grid {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .about-section {
+    padding: 22px 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-container.redesigned {
+    padding: 8px 2px 32px 2px;
+  }
+  .about-section {
+    padding: 12px 2px;
+    border-radius: 8px;
+  }
+  .overview-image img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  .sector-card {
+    padding: 12px 8px;
+    min-width: 0;
+  }
+}
