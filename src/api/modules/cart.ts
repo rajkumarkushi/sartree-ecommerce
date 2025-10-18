@@ -1,5 +1,5 @@
 // cart.ts API module (NOT the Cart component)
-import { api } from "@/services/http";
+import client from "@/api/client";
 
 export const cartAPI = {
   addToCart: (data: { product_id: number | string; quantity: number; user_id?: number | string }) => {
@@ -12,11 +12,11 @@ export const cartAPI = {
     if (data.user_id != null && `${data.user_id}` !== "") {
       payload.user_id = Number(data.user_id);
     }
-    return api.post("/cart/add", payload);
+    return client.post("/cart/add", payload);
   },
 
   // keep the rest as you have it…
-  getCartByUserId: (user_id: number | string) => api.post("/cart-items", { user_id }),
-  getCartByRowIds: (idsCsv: string) => api.post("/cart-items", { cart_item_ids: idsCsv }),
-  removeFromCart: (cart_item_id: number | string) => api.post("/cart-delete", { cart_item_id }),
+  getCartByUserId: (user_id: number | string) => client.post("/cart-items", { user_id }),
+  getCartByRowIds: (idsCsv: string) => client.post("/cart-items", { cart_item_ids: idsCsv }),
+  removeFromCart: (cart_item_id: number | string) => client.post("/cart-delete", { cart_item_id }),
 };

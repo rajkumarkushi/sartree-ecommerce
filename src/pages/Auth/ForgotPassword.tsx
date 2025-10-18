@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Mail } from "lucide-react";
-import { authAPI } from '@/services/productPageApi';
+import { authAPI } from '@/api/modules/auth';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Minus, Plus, Heart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
-import { productAPI } from '@/services/productPageApi';
+import { productAPI } from '@/api/modules/products';
 
 interface ProductImage {
   id: number;

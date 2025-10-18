@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { authApi } from "@/services/authApi";
+import { authAPI } from "@/api/modules/auth";
 
 type FormState = {
   first_name: string;
@@ -58,7 +58,7 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      await authApi.register({
+      await authAPI.register({
         first_name: form.first_name,
         last_name: form.last_name,
         username: form.username,

@@ -1,47 +1,45 @@
 // src/services/http.ts
 import axios from "axios";
 
-const BASE =
-  import.meta.env.VITE_API_BASE_URL || "https://api.sartree.com/api/v1";
+const BASE = import.meta.env.DEV ? "/api" : (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : "https://api.sartree.com/api");
 
-export const api = axios.create({
+const http = axios.create({
   baseURL: BASE,
   timeout: 15000,
   headers: {
     Accept: "application/json",
-    // NOTE: don't force Content-Type globally (lets FormData work)
   },
 });
 
-// Attach token on every request
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("auth_token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    // If you're sending plain JSON and Content-Type wasn't set by caller, set it.
-    if (!(config.data instanceof FormData) && !config.headers["Content-Type"]) {
-      config.headers["Content-Type"] = "application/json";
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+// Attach token if present in localStorage (initial load)
+const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+if (token) {
+  http.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+}
 
-// Basic response handling (optional: react to 401)
-api.interceptors.response.use(
-  (res) => res,
+// Response interceptor to attach helpful message
+http.interceptors.response.use(
+  (response) => response,
   (error) => {
-    // if (error?.response?.status === 401) {
-    //   localStorage.removeItem("auth_token");
-    //   // optionally redirect to /signin
-    // }
-    return Promise.reject(error);
+    const enhanced = error as any;
+    enhanced.userMessage =
+      error?.response?.data?.message ??
+      error?.response?.data?.error_description ??
+      error?.response?.data ??
+      error?.message ??
+      "Network error";
+    return Promise.reject(enhanced);
   }
 );
 
-if (typeof window !== "undefined") {
-  console.log("[API Base URL]", api.defaults.baseURL);
+export function setAuthToken(tokenValue: string | null) {
+  if (tokenValue) {
+    http.defaults.headers.common["Authorization"] = `Bearer ${tokenValue}`;
+    try { localStorage.setItem("auth_token", tokenValue); } catch {}
+  } else {
+    delete http.defaults.headers.common["Authorization"];
+    try { localStorage.removeItem("auth_token"); } catch {}
+  }
 }
 
+export default http;

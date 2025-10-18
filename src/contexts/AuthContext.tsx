@@ -1,14 +1,16 @@
 // src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { authApi } from "@/services/authApi";
+import authApi from "../services/authApi";
+import { setAuthToken } from "../services/http";
 
 type User = {
-  id: number;
+  id?: number;
   firstname?: string;
   lastname?: string;
-  email: string;
+  email?: string;
   username?: string;
   mobile?: string;
+  [k: string]: any;
 };
 
 type Ctx = {
@@ -17,18 +19,11 @@ type Ctx = {
   error: string | null;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (p: {
-    first_name: string;
-    last_name: string;
-    username: string;
-    email: string;
-    phone: string;
-    password: string;
-    password_confirmation: string;
-  }) => Promise<boolean>;
+  register: (p: any) => Promise<boolean>;
   logout: () => Promise<void>;
   clearError: () => void;
 };
+
 const AuthContext = createContext<Ctx | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -36,12 +31,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // hydrate from localStorage
+  // hydrate user from localStorage on start
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("auth_user");
-      if (raw) setUser(JSON.parse(raw));
-    } catch {}
+      const rawUser = localStorage.getItem("auth_user");
+      const rawToken = localStorage.getItem("auth_token");
+      if (rawToken) {
+        setAuthToken(rawToken);
+      }
+      if (rawUser) {
+        setUser(JSON.parse(rawUser));
+      }
+    } catch (err) {
+      // ignore
+    }
   }, []);
 
   const isAuthenticated = !!user || !!localStorage.getItem("auth_token");
@@ -50,54 +53,87 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(true);
     setError(null);
     try {
+      console.log("[AuthContext] Attempting login with:", { email, password: "***" });
       const res = await authApi.login(email, password);
+      console.log("[AuthContext] Login response:", res);
 
-      // success shape is backend-specific; accept common variants
-      const ok =
-        res?.status === "Success" ||
-        res?.success === true ||
-        !!(res?.access_token || res?.token || res?.data?.access_token);
+      // Extract token in common places
+      const accessToken =
+        res?.access_token ||
+        res?.token ||
+        res?.data?.access_token ||
+        res?.tokenDetails?.access_token ||
+        res?.tokenDetails?.token ||
+        (typeof res === "string" ? null : null);
+      
+      console.log("[AuthContext] Extracted access token:", accessToken ? "***" : "none");
 
-      if (ok) {
-        const u = res?.userDetails || res?.user || res?.data?.user || null;
-        if (u) {
-          setUser(u);
-          localStorage.setItem("auth_user", JSON.stringify(u));
-        }
-        return true;
+      if (!accessToken) {
+        // If response included token in a nested field use that; otherwise fail
+        setError(res?.message || JSON.stringify(res) || "Login did not return token");
+        setLoading(false);
+        return false;
       }
 
-      setError(res?.message || "Login failed");
-      return false;
-    } catch (e: any) {
-      setError(e?.response?.data?.message || e?.message || "Login failed");
-      return false;
-    } finally {
+      // Save token and configure http client
+      setAuthToken(accessToken);
+
+      // Extract user object if present
+      const u =
+        res?.userDetails || res?.user || res?.data?.user || res?.user_details || null;
+
+      if (u) {
+        setUser(u);
+        try {
+          localStorage.setItem("auth_user", JSON.stringify(u));
+        } catch {}
+      }
+
+      // Persist token
+      try {
+        localStorage.setItem("auth_token", accessToken);
+      } catch {}
+
       setLoading(false);
+      return true;
+    } catch (e: any) {
+      const msg = e?.message ?? "Login failed";
+      setError(msg);
+      setLoading(false);
+      return false;
     }
   };
 
-  const register = async (p: Parameters<typeof authApi.register>[0]) => {
+  const register = async (payload: any) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await authApi.register(p);
-      const ok = res?.status === "Success" || res?.success === true;
-      if (!ok) setError(res?.message || "Registration failed");
+      const res = await authApi.register(payload);
+      const ok = res?.status === "Success" || res?.success === true || res?.message === "Success";
+      if (!ok) {
+        setError(res?.message || "Registration failed");
+      }
+      setLoading(false);
       return !!ok;
     } catch (e: any) {
-      setError(e?.response?.data?.message || e?.message || "Registration failed");
-      return false;
-    } finally {
+      setError(e?.message || "Registration failed");
       setLoading(false);
+      return false;
     }
   };
 
   const logout = async () => {
+    setLoading(true);
     try {
       await authApi.logout();
     } finally {
       setUser(null);
+      setAuthToken(null);
+      try {
+        localStorage.removeItem("auth_user");
+        localStorage.removeItem("auth_token");
+      } catch {}
+      setLoading(false);
     }
   };
 
@@ -105,7 +141,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <AuthContext.Provider
-      value={{ user, isLoading, error, isAuthenticated, login, register, logout, clearError }}
+      value={{ user, isLoading: isLoading, error, isAuthenticated, login, register, logout, clearError }}
     >
       {children}
     </AuthContext.Provider>

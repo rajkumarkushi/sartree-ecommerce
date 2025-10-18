@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { cartAPI, orderAPI, authAPI } from '../services/productPageApi';
+import { cartAPI } from '@/api/modules/cart';
+import { orderAPI } from '@/api/modules/orders';
+import { authAPI } from '@/api/modules/auth';
 import { useCart } from '../contexts/CartContext';
 
 const CreateOrder: React.FC = () => {

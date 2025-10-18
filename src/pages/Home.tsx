@@ -4,26 +4,38 @@ import HeroSlider from '../components/HeroSlider';
 import ProductCard, { ProductProps } from '../components/ProductCard';
 import AuthStatus from '../components/AuthStatus';
 import { config } from '../config';
-import { fetchProducts, Product } from '../services/productApi';
+import { productAPI } from '@/api/modules/products';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetchProducts()
+    
+    // Add a timeout to prevent hanging
+    const timeoutId = setTimeout(() => {
+      setError("Request timeout. Please check your connection.");
+      setLoading(false);
+    }, 10000);
+    
+    productAPI.list()
       .then((data) => {
-        setProducts(data);
+        clearTimeout(timeoutId);
+        console.log("Products loaded:", data);
+        setProducts(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch((error) => {
+        clearTimeout(timeoutId);
         console.error("Fetch error:", error);
         setError("Failed to load products. Please try again later.");
         setLoading(false);
+        // Set empty products array as fallback
+        setProducts([]);
       });
   }, []);
 
@@ -72,9 +84,20 @@ const Home = () => {
           </div>
           
           {loading ? (
-            <p className="text-center col-span-full text-gray-500">Loading products...</p>
+            <div className="text-center col-span-full">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-farm-primary mx-auto mb-4"></div>
+              <p className="text-gray-500">Loading products...</p>
+            </div>
           ) : error ? (
-            <p className="text-center col-span-full text-red-600">{error}</p>
+            <div className="text-center col-span-full">
+              <p className="text-red-600 mb-4">{error}</p>
+              <button 
+                onClick={() => window.location.reload()} 
+                className="px-4 py-2 bg-farm-primary text-white rounded hover:bg-farm-dark"
+              >
+                Retry
+              </button>
+            </div>
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -86,10 +109,17 @@ const Home = () => {
                     />
                   ))
                 ) : (
-                  <p className="text-center col-span-full text-gray-500">No products available at the moment.</p>
+                  <div className="text-center col-span-full">
+                    <p className="text-gray-500 mb-4">No products available at the moment.</p>
+                    <button 
+                      onClick={() => window.location.reload()} 
+                      className="px-4 py-2 bg-farm-primary text-white rounded hover:bg-farm-dark"
+                    >
+                      Refresh
+                    </button>
+                  </div>
                 )}
               </div>
-              {/* Debug: simple list of product names */}
             </>
           )}
         </div>
