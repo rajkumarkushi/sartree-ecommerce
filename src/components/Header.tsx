@@ -146,12 +146,12 @@ const Header: React.FC = () => {
                     <button
                       onClick={() => {
                         setShowProfileMenu(false);
-                        navigate("/profile/edit");
+                        navigate("/profile");
                       }}
                       className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50"
                     >
                       <UserCog size={16} />
-                      Edit Username
+                      My Profile
                     </button>
 
                     <button
@@ -163,6 +163,17 @@ const Header: React.FC = () => {
                     >
                       <Key size={16} />
                       Change Password
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setShowProfileMenu(false);
+                        navigate("/orders");
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-50"
+                    >
+                      <UserCog size={16} />
+                      My Orders
                     </button>
 
                     <button
@@ -246,11 +257,11 @@ const Header: React.FC = () => {
               {user ? (
                 <>
                   <button
-                    onClick={() => navigate("/profile/edit")}
+                    onClick={() => navigate("/profile")}
                     className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-gray-50"
                   >
                     <UserCog size={16} />
-                    Edit Username
+                    My Profile
                   </button>
                   <button
                     onClick={() => navigate("/change-password")}
@@ -258,6 +269,13 @@ const Header: React.FC = () => {
                   >
                     <Key size={16} />
                     Change Password
+                  </button>
+                  <button
+                    onClick={() => navigate("/orders")}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-gray-50"
+                  >
+                    <UserCog size={16} />
+                    My Orders
                   </button>
                   <button
                     onClick={handleLogout}

@@ -47,8 +47,10 @@ const OrderHistory = () => {
     const fetchOrders = async () => {
       try {
         const data = await orderAPI.getOrders();
-        console.log('Fetched orders:', data);
-        setOrders(data);
+        const list = (data?.data || data?.orders || data);
+        const safe = Array.isArray(list) ? list : [];
+        console.log('Fetched orders (normalized):', safe);
+        setOrders(safe);
         setLoading(false);
       } catch (err: any) {
         setError(err.message || 'Failed to fetch orders');
@@ -102,7 +104,7 @@ const OrderHistory = () => {
             <div>
               <p className="text-sm text-muted-foreground">Delivered</p>
               <p className="text-xl font-semibold text-foreground">
-                {orders.filter(o => o.status === 'delivered').length}
+                {orders.filter((o) => (o?.status || '').toLowerCase() === 'delivered').length}
               </p>
             </div>
           </div>
@@ -116,7 +118,7 @@ const OrderHistory = () => {
             <div>
               <p className="text-sm text-muted-foreground">Shipped</p>
               <p className="text-xl font-semibold text-foreground">
-                {orders.filter(o => o.status === 'shipped').length}
+                {orders.filter((o) => (o?.status || '').toLowerCase() === 'shipped').length}
               </p>
             </div>
           </div>
@@ -130,7 +132,7 @@ const OrderHistory = () => {
             <div>
               <p className="text-sm text-muted-foreground">Processing</p>
               <p className="text-xl font-semibold text-foreground">
-                {orders.filter(o => o.status === 'processing').length}
+                {orders.filter((o) => (o?.status || '').toLowerCase() === 'processing').length}
               </p>
             </div>
           </div>
@@ -146,7 +148,7 @@ const OrderHistory = () => {
               <p className="text-xl font-semibold text-foreground">
                 ₹
                 {orders
-                  .reduce((acc, order) => acc + parseFloat(order.total || '0'), 0)
+                  .reduce((acc, order) => acc + Number(order?.total ?? order?.totalAmount ?? 0), 0)
                   .toFixed(2)}
               </p>
             </div>
@@ -156,7 +158,7 @@ const OrderHistory = () => {
 
       {/* Orders List */}
       <div className="space-y-4">
-        {orders.map(order => (
+        {orders.map((order) => (
           <Card
             key={order.id}
             className="p-6 bg-gradient-card border border-border hover:shadow-glow transition-all duration-300"
@@ -165,16 +167,16 @@ const OrderHistory = () => {
               <div>
                 <div className="flex items-center space-x-3 mb-2">
                   <h4 className="text-lg font-semibold text-foreground">Order #{order.id}</h4>
-                  <Badge variant={getStatusVariant(order.status)} className="capitalize">
-                    {order.status}
+                  <Badge variant={getStatusVariant((order.status || '').toLowerCase())} className="capitalize">
+                    {order.status || 'processing'}
                   </Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Order Date: {new Date(order.created_at).toLocaleString()}
+                  Order Date: {new Date(order.created_at || order.date || Date.now()).toLocaleString()}
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-xl font-semibold text-foreground">₹{order.total}</p>
+                <p className="text-xl font-semibold text-foreground">₹{order.total ?? order.totalAmount ?? 0}</p>
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -191,9 +193,9 @@ const OrderHistory = () => {
               <div>
                 <label className="text-sm font-medium text-muted-foreground">Items</label>
                 <div className="mt-1 space-y-1">
-                  {order.items.map((item: any, index: number) => (
+                  {(order.items || order.order_items || []).map((item: any, index: number) => (
                     <p key={index} className="text-foreground text-sm">
-                      {item.product?.title || 'Unnamed Product'} × {item.quantity} – ₹{item.price}
+                      {item.product?.title || item.product?.name || 'Unnamed Product'} × {item.quantity} – ₹{item.price}
                     </p>
                   ))}
                 </div>

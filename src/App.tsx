@@ -24,6 +24,7 @@ import Checkout from "./pages/Checkout";
 import OrderPlaced from "./pages/OrderPlaced";
 import CreateOrder from "./pages/CreateOrder";
 import Addresses from "./pages/Addresses";
+import ChangePassword from "./pages/ChangePassword";
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -66,6 +67,14 @@ const App = () => (
                   <Route path="/orders/" element={<OrderHistory />} />
                   <Route path="/checkout" element={<Checkout />} />
                   <Route path="/settings-panel" element={<SettingsPanel />} />
+                  <Route
+                    path="/change-password"
+                    element={
+                      <ProtectedRoute>
+                        <ChangePassword />
+                      </ProtectedRoute>
+                    }
+                  />
                   <Route path="/addresses" element={<Addresses />} />
                   <Route path="/order-placed/:orderId" element={<OrderPlaced />} />
                   <Route path="/create-order" element={<CreateOrder />} />

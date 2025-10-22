@@ -25,6 +25,10 @@ export const userAPI = {
     const res = await client.delete(`/v1/users/address/${id}`);
     return res.data;
   },
+  changePassword: async (payload: { current_password: string; new_password: string; new_password_confirmation: string; }) => {
+    const res = await client.post('/v1/user/change-password', payload);
+    return res.data;
+  },
 };
 
 

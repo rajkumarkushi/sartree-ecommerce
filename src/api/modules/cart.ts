@@ -12,11 +12,11 @@ export const cartAPI = {
     if (data.user_id != null && `${data.user_id}` !== "") {
       payload.user_id = Number(data.user_id);
     }
-    return client.post("/cart/add", payload);
+    return client.post("/v1/cart/add", payload);
   },
 
   // keep the rest as you have it…
-  getCartByUserId: (user_id: number | string) => client.post("/cart-items", { user_id }),
-  getCartByRowIds: (idsCsv: string) => client.post("/cart-items", { cart_item_ids: idsCsv }),
-  removeFromCart: (cart_item_id: number | string) => client.post("/cart-delete", { cart_item_id }),
+  getCartByUserId: (user_id: number | string) => client.post("/v1/cart-items", { user_id }),
+  getCartByRowIds: (idsCsv: string) => client.post("/v1/cart-items", { cart_item_ids: idsCsv }),
+  removeFromCart: (cart_item_id: number | string) => client.post("/v1/cart-delete", { cart_item_id }),
 };

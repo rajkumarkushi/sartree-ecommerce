@@ -26,7 +26,8 @@ const ProductCard: React.FC<ProductProps> = ({
   isOnSale = false,
   isSoldOut = false,
 }) => {
-  const { addItem } = useCart();
+  const { addItem, items, loading } = useCart();
+  const isInCart = items.some((i) => `${i.id}` === `${id}`);
   const discount =
     originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
@@ -122,10 +123,11 @@ const ProductCard: React.FC<ProductProps> = ({
         ) : (
           <button
             type="button"
-            className="w-full rounded bg-black px-4 py-2 text-white transition-colors duration-300 hover:bg-gray-800"
-            onClick={handleAddToCart}
+            className={`w-full rounded px-4 py-2 text-white transition-colors duration-300 ${isInCart ? "bg-green-600 hover:bg-green-600 cursor-not-allowed" : "bg-black hover:bg-gray-800"}`}
+            onClick={isInCart ? undefined : handleAddToCart}
+            disabled={isInCart || loading}
           >
-            Add to Cart
+            {isInCart ? "Added to Cart" : (loading ? "Adding..." : "Add to Cart")}
           </button>
         )}
       </div>

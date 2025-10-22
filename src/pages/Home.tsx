@@ -26,7 +26,18 @@ const Home = () => {
       .then((data) => {
         clearTimeout(timeoutId);
         console.log("Products loaded:", data);
-        setProducts(Array.isArray(data) ? data : []);
+        const list = Array.isArray(data) ? data : (data?.data && Array.isArray(data.data) ? data.data : []);
+        setProducts(list.map((p: any) => ({
+          id: p.id,
+          name: p.name || p.title || `Product ${p.id}`,
+          price: Number(p.price ?? p.finalPrice ?? p.sale_price ?? 0),
+          originalPrice: Number(p.original_price ?? p.mrp ?? p.price) || undefined,
+          image: p.image || p.thumbnail || (p.images && p.images[0]) || '/images/1.jpeg',
+          weight: p.weight || p.size || '1kg',
+          isNew: !!p.is_new,
+          isOnSale: !!p.is_on_sale,
+          isSoldOut: !!p.is_sold_out,
+        })));
         setLoading(false);
       })
       .catch((error) => {

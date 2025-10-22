@@ -59,6 +59,14 @@ const Cart: React.FC = () => {
                           onClick={() => removeItem(it.id)}>
                     <Trash2 className="h-4 w-4" /> Remove
                   </button>
+                  <button
+                    className="mt-2 ml-2 inline-flex items-center gap-1 rounded px-2 py-1 text-sm text-white bg-green-700 hover:bg-green-800"
+                    onClick={() => {
+                      navigate('/checkout', { state: { items: [{ ...it }] } });
+                    }}
+                  >
+                    Checkout
+                  </button>
                 </div>
               </div>
             ))}
@@ -71,14 +79,13 @@ const Cart: React.FC = () => {
             </div>
             <p className="mb-3 text-sm text-gray-500">Taxes & shipping at checkout.</p>
             <button
-  onClick={() => {
-    if (user) navigate("/checkout");
-    else navigate("/signin?redirect=/checkout");
-  }}
-  className="w-full rounded bg-green-700 px-4 py-2 text-white hover:bg-green-800"
->
-  {user ? "Checkout" : "Checkout as Guest"}
-</button>
+              onClick={() => {
+                navigate("/checkout");
+              }}
+              className="w-full rounded bg-green-700 px-4 py-2 text-white hover:bg-green-800"
+            >
+              {user ? "Checkout" : "Checkout as Guest"}
+            </button>
 
           </aside>
         </div>

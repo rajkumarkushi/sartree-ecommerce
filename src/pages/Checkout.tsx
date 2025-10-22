@@ -13,12 +13,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowLeft, CreditCard, Truck } from 'lucide-react';
 import { orderAPI } from '@/api/modules/orders';
+import { addressAPI } from '@/api/modules/address';
 import { tokenManager } from '@/api/tokens';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { items, getCartTotal, clearCart } = useCart();
+  const { items, getCartTotal, clearCart, removeItem } = useCart();
   const { user, isAuthenticated } = useAuth();
   const { toast } = useToast();
 
@@ -104,11 +105,6 @@ const Checkout = () => {
     if (step === 1 && validateShipping()) {
       setStep(2);
     } else if (step === 2 && validatePayment()) {
-      // If COD selected and not authenticated, force login before placing order
-      if (paymentMethod === 'cod' && !isAuthenticated) {
-        navigate('/signin', { state: { from: '/checkout' } });
-        return;
-      }
       setStep(3);
     }
   };
@@ -118,17 +114,20 @@ const Checkout = () => {
   };
 
   const handlePlaceOrder = async () => {
-    // Require signup/login right before placing order if user is not authenticated
+    // Only require sign in for unauthenticated users
     const token = tokenManager.getAccessToken && tokenManager.getAccessToken();
-    if (!token || (tokenManager.isTokenExpired && tokenManager.isTokenExpired(token))) {
-      toast({ title: 'Please sign in', description: 'Create an account or sign in to place order.' });
-      navigate('/signup', { state: { from: '/checkout' } });
+    if (!isAuthenticated || !token || (tokenManager.isTokenExpired && tokenManager.isTokenExpired(token))) {
+      toast({ title: 'Please sign in', description: 'Sign in to place your order.' });
+      navigate('/signin', { state: { from: '/checkout' } });
       return;
     }
     setLoading(true); // Optional: show loading spinner
     try {
-      const orderData = {
-        items: items.map(item => ({
+      const stateItems: any[] | undefined = (location.state as any)?.items;
+      const checkoutItems = Array.isArray(stateItems) && stateItems.length ? stateItems : items;
+
+      const orderData: any = {
+        items: checkoutItems.map(item => ({
           product_id: item.id,
           quantity: item.quantity,
           price: item.price,
@@ -148,11 +147,38 @@ const Checkout = () => {
           cardholder_name: cardInfo.cardholderName,
           expiry_date: cardInfo.expiryDate,
           cvv: cardInfo.cvv,
-        } : undefined,
+        } : (paymentMethod === 'cod' ? 'Cash On Delivery' : undefined),
         notes: '',
         email: shippingInfo.email,
         phone: shippingInfo.phone,
       };
+
+      // Many Laravel endpoints require a user_id; include if available
+      const uid = (user as any)?.id || JSON.parse(localStorage.getItem('auth_user') || '{}')?.id;
+      if (uid) (orderData as any).user_id = uid;
+
+      // Create address first to get address_id
+      let addressId: number | string | undefined;
+      try {
+        const addrRes = await addressAPI.createAddress({
+          line1: shippingInfo.address,
+          line2: '',
+          city: shippingInfo.city,
+          state: shippingInfo.state,
+          pincode: shippingInfo.zipCode,
+          user_id: uid,
+        });
+        addressId = addrRes?.id || addrRes?.address_id;
+      } catch (e) {
+        console.warn('Failed to create address, using fallback:', e);
+        // Fallback: try to use a default address_id (you may need to adjust this)
+        addressId = 1; // or fetch from existing addresses
+      }
+
+      // Include address_id in order payload
+      if (addressId) {
+        (orderData as any).address_id = addressId;
+      }
 
       // Validate orderData before sending
       const validationError = validateOrderData(orderData);
@@ -169,8 +195,14 @@ const Checkout = () => {
       // Pass the token as the second argument
       const response = await orderAPI.createOrder(orderData);
 
-      // Optionally clear the cart and redirect
-      clearCart();
+      // Clear only the ordered items if a subset was checked out; otherwise clear all
+      if (Array.isArray(stateItems) && stateItems.length) {
+        for (const it of checkoutItems) {
+          try { await removeItem(it.id); } catch {}
+        }
+      } else {
+        clearCart();
+      }
       if (response && response.order_id) {
         navigate(`/order-placed/${response.order_id || response.id}`);
       } else {

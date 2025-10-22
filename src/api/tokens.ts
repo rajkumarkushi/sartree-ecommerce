@@ -1,6 +1,12 @@
 export const tokenManager = {
   getAccessToken: () => {
-    try { return localStorage.getItem('access_token'); } catch { return null; }
+    try {
+      return (
+        localStorage.getItem('access_token') ||
+        localStorage.getItem('auth_token') ||
+        null
+      );
+    } catch { return null; }
   },
   getRefreshToken: () => {
     try { return localStorage.getItem('refresh_token'); } catch { return null; }
@@ -8,6 +14,8 @@ export const tokenManager = {
   setTokens: (accessToken: string, refreshToken?: string) => {
     try {
       localStorage.setItem('access_token', accessToken);
+      // mirror to auth_token for legacy callers
+      localStorage.setItem('auth_token', accessToken);
       if (refreshToken) localStorage.setItem('refresh_token', refreshToken);
       const payload = JSON.parse(atob(accessToken.split('.')[1]));
       localStorage.setItem('token_expiry', payload.exp.toString());
