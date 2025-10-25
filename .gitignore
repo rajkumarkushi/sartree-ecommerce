@@ -3,6 +3,7 @@
 # =========================
 node_modules/
 dist/
+dist(2)/
 dist-ssr/
 build/
 coverage/
@@ -51,6 +52,10 @@ Thumbs.db
 *.pid
 *.seed
 *.pid.lock
+
+# Auto-generated Vite/TypeScript temp files
+*.timestamp-*.mjs
+*.tsbuildinfo
 
 # =========================
 # ⚙️ Dependency Lock Files (optional)

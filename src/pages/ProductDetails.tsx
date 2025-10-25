@@ -69,74 +69,85 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [actionLoading, setActionLoading] = useState<boolean>(false);
+  const [addedToCart, setAddedToCart] = useState(false);
+
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      if (!id) {
-        setError("Product ID is missing");
-        setLoading(false);
-        setProduct(null);
-        return;
-      }
-
-      setLoading(true);
-      setError("");
+  const fetchProduct = async () => {
+    if (!id) {
+      setError("Product ID is missing");
+      setLoading(false);
       setProduct(null);
+      return;
+    }
 
-      try {
-        console.log("Fetching product details for id:", id);
-        const data = await productAPI.getProduct(id);
-        console.log("Product API response:", data);
+    setLoading(true);
+    setError("");
+    setProduct(null);
 
-        if (data) {
-          console.log("Category:", JSON.stringify(data.category));
-          const mappedProduct: Product = {
-            id: data.id?.toString() || id,
-            name: data.name || "",
-            description: data.description || "",
-            color: data.color || "",
-            brand_name: data.brand_name || "",
-            weight: data.weight?.toString() || "",
-            category: data.category?.title || data.category || "",
-            price: parseFloat(data.price) || 0,
-            originalPrice: data.original_price ? parseFloat(data.original_price) : undefined,
-            images: Array.isArray(data.images) && data.images.length > 0
-              ? data.images.map((img: any, index: number) => ({
-                  id: img?.id ?? index,
-                  url: img?.name ?? img?.url ?? img ?? "/images/3.jpeg",
-                }))
-              : [{ id: 1, url: data.image ?? "/images/3.jpeg" }],
-            specifications: Array.isArray(data.specifications)
-              ? data.specifications.map((spec: any) => ({
-                  label: spec.label || spec.name || "",
-                  value: spec.value || ""
-                }))
-              : [],
-          };
+   try {
+  console.log("Fetching product details for id:", id);
+  const response = await productAPI.getProduct(id);
+  console.log("Product API response:", response);
 
-          setProduct(mappedProduct);
-          setError("");
-        } else {
-          throw new Error("No product data received");
-        }
-      } catch (error: unknown) {
-        console.error("Error fetching product details:", error);
-        setError("Failed to load product details. Using mock data.");
-        
-        // Fallback to mock data
-        const mock = mockProducts.find((p) => p.id === id);
-        if (mock) {
-          setProduct(mock);
-        } else {
-          setProduct(null);
-        }
-      } finally {
-        setLoading(false);
-      }
+  const data = response?.data; // ✅ fix
+
+  if (data) {
+    let imagesArr: ProductImage[] = [];
+    if (Array.isArray(data.images) && data.images.length > 0) {
+      imagesArr = data.images.map((img: any, index: number) => ({
+        id: img?.id ?? index,
+        url: img?.url || img?.name || img || "/images/default.jpg",
+      }));
+    } else if (data.image) {
+      imagesArr = [{ id: 1, url: data.image }];
+    } else if (data.image_url) {
+      imagesArr = [{ id: 1, url: data.image_url }];
+    } else {
+      imagesArr = [{ id: 1, url: "/images/default.jpg" }];
+    }
+
+    const mappedProduct: Product = {
+      id: data.id?.toString() || id,
+      name: data.name || "",
+      description: data.description || "",
+      color: data.color || "",
+      brand_name: data.brand_name || "",
+      weight: data.weight?.toString() || "",
+      category: data.category?.title || data.category || "",
+      price: parseFloat(data.price) || 0,
+      originalPrice: data.original_price
+        ? parseFloat(data.original_price)
+        : undefined,
+      images: imagesArr,
+      specifications: Array.isArray(data.specifications)
+        ? data.specifications.map((spec: any) => ({
+            label: spec.label || spec.name || "",
+            value: spec.value || "",
+          }))
+        : [],
     };
 
-    fetchProduct();
-  }, [id]);
+    setProduct(mappedProduct);
+    setSelectedImage(0);
+    setError("");
+  } else {
+    throw new Error("No product data received");
+  }
+} catch (error: any) {
+  console.error("Error fetching product details:", error);
+  setError("Failed to load product details. Using mock data.");
+  const mock = mockProducts.find((p) => p.id === id);
+  if (mock) setProduct(mock);
+  else setProduct(null);
+} finally {
+  setLoading(false);
+}
+
+  };
+
+  fetchProduct();
+}, [id]);
 
   const handleQuantityChange = (delta: number) => {
     const newQuantity = quantity + delta;
@@ -146,81 +157,53 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = async () => {
-    if (!product) {
-      console.error("No product available");
-      return;
-    }else{
+  if (!product) return;
+  if (quantity < 1) return;
 
-    }
-    
-    if (quantity < 1) {
-      console.error("Invalid quantity:", quantity);
-      return;
-    }
+  setActionLoading(true);
+  try {
+    const cartItem = {
+      product_id: product.id,
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0]?.url || "/images/default.jpg",
+    };
 
-    setActionLoading(true);
-    try {
-      const cartItem = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.images[0]?.url || "/images/default.jpg",
-      };
-      
-      console.log("Adding to cart:", cartItem, "quantity:", quantity);
-      await addItem(cartItem, quantity);
-      
-      // Show success message or feedback here if needed
-      console.log("Successfully added to cart");
-      
-    } catch (error: any) {
-      console.error("Failed to add to cart:", error);
-      if (error.response?.data) {
-        console.error("Error response data:", error.response.data);
-      }
-      // Show error message to user here if needed
-      setError("Failed to add item to cart. Please try again.");
-    } finally {
-      setActionLoading(false);
-    }
-  };
+    await addItem(cartItem, quantity);
+    setAddedToCart(true); // ✅ change button text
+    console.log("Added to cart:", cartItem);
+  } catch (error: any) {
+    console.error("Add to cart failed:", error);
+    setError("Failed to add item to cart. Please try again.");
+  } finally {
+    setActionLoading(false);
+  }
+};
 
   const handleBuyNow = async () => {
-    if (!product) {
-      console.error("No product available");
-      return;
-    }
-    
-    if (quantity < 1) {
-      console.error("Invalid quantity:", quantity);
-      return;
-    }
+  if (!product) return;
+  if (quantity < 1) return;
 
-    setActionLoading(true);
-    try {
-      const cartItem = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        originalPrice: product.originalPrice,
-        image: product.images[0]?.url || "/images/default.jpg",
-      };
-      
-      console.log("Adding to cart for buy now:", cartItem, "quantity:", quantity);
-      await addItem(cartItem, quantity);
-      navigate("/checkout");
-      
-    } catch (error: any) {
-      console.error("Failed to add to cart for buy now:", error);
-      if (error.response?.data) {
-        console.error("Error response data:", error.response.data);
-      }
-      setError("Failed to process buy now. Please try again.");
-    } finally {
-      setActionLoading(false);
-    }
-  };
+  setActionLoading(true);
+  try {
+    const cartItem = {
+      product_id: product.id,
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0]?.url || "/images/default.jpg",
+    };
+
+    await addItem(cartItem, quantity);
+    navigate("/checkout");
+  } catch (error: any) {
+    console.error("Buy now failed:", error);
+    setError("Failed to process buy now. Please try again.");
+  } finally {
+    setActionLoading(false);
+  }
+};
 
   if (loading) {
     return (
@@ -398,13 +381,15 @@ const ProductDetails = () => {
             </div>
 
             <div className="space-y-3 flex flex-col md:items-end">
-              <Button
-                className="w-full md:w-96  bg-amber-400 hover:bg-yellow-500 text-white py-6 text-lg text-center"
-                onClick={handleAddToCart}
-                disabled={actionLoading}
-              >
-                {actionLoading ? "Adding..." : "Add to Cart"}
-              </Button>
+             <Button
+  className={`w-full md:w-96 ${
+    addedToCart ? "bg-green-500 hover:bg-green-600" : "bg-amber-400 hover:bg-yellow-500"
+  } text-white py-6 text-lg text-center`}
+  onClick={handleAddToCart}
+  disabled={actionLoading}
+>
+  {actionLoading ? "Adding..." : addedToCart ? "Added to Cart" : "Add to Cart"}
+</Button>
 
               <Button
                 className="w-full md:w-96 bg-farm-primary hover:bg-farm-dark text-white py-6 text-lg text-center"
