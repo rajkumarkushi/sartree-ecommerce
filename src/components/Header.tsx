@@ -97,7 +97,7 @@ const Header: React.FC = () => {
         {/* Right: Search + Cart + Auth/Profile */}
         <div className="flex items-center gap-3">
           {/* 🔍 Search */}
-          <form
+          {/* <form
             onSubmit={handleSearchSubmit}
             className="hidden md:flex items-center gap-2 rounded-full border px-3 py-1.5"
           >
@@ -108,7 +108,7 @@ const Header: React.FC = () => {
               placeholder="Search products..."
               className="w-56 flex-1 bg-transparent outline-none"
             />
-          </form>
+          </form> */}
 
           {/* 🛒 Cart */}
           <Link
@@ -225,7 +225,7 @@ const Header: React.FC = () => {
             </form>
 
             {/* Links */}
-            <div className="grid gap-2">
+            <div className="grid gap-2 border-t pt-3">
               <Link to="/" className="rounded-md px-2 py-2 hover:bg-gray-50">
                 Home
               </Link>
@@ -253,7 +253,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Auth controls (mobile) */}
-            <div className="border-t pt-3">
+            {/* <div className="border-t pt-3">
               {user ? (
                 <>
                   <button
@@ -294,7 +294,7 @@ const Header: React.FC = () => {
                   Sign In
                 </Link>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       )}

@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { Search } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import HeroSlider from '../components/HeroSlider';
 import ProductCard, { ProductProps } from '../components/ProductCard';
-import AuthStatus from '../components/AuthStatus';
 import { config } from '../config';
 import { productAPI } from '@/api/modules/products';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth();
+  const location = useLocation();
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get('search') || '';
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -49,6 +55,17 @@ const Home = () => {
         setProducts([]);
       });
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchValue = params.get('search') || '';
+    setSearchTerm((prev) => (prev === searchValue ? prev : searchValue));
+  }, [location.search]);
+
+  const filteredProducts = products.filter((product) =>
+    product.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const displayedProducts = filteredProducts.slice(0, 8);
 
   // Hero Slides Data
   const heroSlides = [
@@ -92,6 +109,26 @@ const Home = () => {
                 🎉 You're logged in! Enjoy personalized shopping experience.
               </p>
             )}
+            <div className="mt-8 flex justify-center px-4 sm:px-0">
+              <div className="relative w-full max-w-2xl group">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 opacity-60 blur-xl group-focus-within:opacity-80 transition-opacity"></div>
+                <div className="relative flex items-center gap-3 rounded-full bg-white/95 backdrop-blur border-2 border-green-100 shadow-[0_10px_35px_rgba(34,197,94,0.2)] focus-within:border-green-400 focus-within:shadow-[0_12px_45px_rgba(34,197,94,0.28)] px-5 py-3">
+                  <Search className="text-green-600" size={20} />
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search fresh products..."
+                    className="flex-1 bg-transparent text-base md:text-lg font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none"
+                  />
+                  {searchTerm && (
+                    <span className="text-xs font-semibold uppercase tracking-wide text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                      {filteredProducts.length} match{filteredProducts.length === 1 ? '' : 'es'}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
           
           {loading ? (
@@ -112,8 +149,8 @@ const Home = () => {
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {products.length > 0 ? (
-                  products.slice(0, 8).map((product) => (
+                {displayedProducts.length > 0 ? (
+                  displayedProducts.map((product) => (
                     <ProductCard 
                       key={product.id} 
                       {...product} 
@@ -121,7 +158,11 @@ const Home = () => {
                   ))
                 ) : (
                   <div className="text-center col-span-full">
-                    <p className="text-gray-500 mb-4">No products available at the moment.</p>
+                    <p className="text-gray-500 mb-4">
+                      {products.length === 0
+                        ? 'No products available at the moment.'
+                        : 'No products match your search. Try a different keyword.'}
+                    </p>
                     <button 
                       onClick={() => window.location.reload()} 
                       className="px-4 py-2 bg-farm-primary text-white rounded hover:bg-farm-dark"
@@ -136,12 +177,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Mobile Auth Status (shown only on mobile) */}
-      {isAuthenticated && (
-        <div className="md:hidden fixed bottom-4 right-4 z-50">
-          <AuthStatus />
-        </div>
-      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import ProductCard, { ProductProps } from '../components/ProductCard';
 import ChatWidget from '../components/ChatWidget';
 import { productAPI } from '@/api/modules/products';
@@ -20,7 +21,11 @@ const Products = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const location = useLocation();
+  const [searchTerm, setSearchTerm] = useState<string>(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get('search') || '';
+  });
 
   // Helper function to get a local image
   const getLocalImage = (index: number) => {
@@ -254,6 +259,12 @@ const Products = () => {
   };
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchValue = params.get('search') || '';
+    setSearchTerm((prev) => (prev === searchValue ? prev : searchValue));
+  }, [location.search]);
+
+  useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -289,18 +300,27 @@ const Products = () => {
           <div className="flex flex-wrap items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold mb-2 md:mb-0">All Products</h2>
 
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-farm-primary text-sm"
-              />
-              <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-            </div>
-          </div>
-
+           <div className="mt-8 flex justify-center px-4 sm:px-0">
+                         <div className="relative w-full max-w-2xl group">
+                           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 opacity-60 blur-xl group-focus-within:opacity-80 transition-opacity"></div>
+                           <div className="relative flex items-center gap-3 rounded-full bg-white/95 backdrop-blur border-2 border-green-100 shadow-[0_10px_35px_rgba(34,197,94,0.2)] focus-within:border-green-400 focus-within:shadow-[0_12px_45px_rgba(34,197,94,0.28)] px-5 py-3">
+                             <Search className="text-green-600" size={20} />
+                             <input
+                               type="text"
+                               value={searchTerm}
+                               onChange={(e) => setSearchTerm(e.target.value)}
+                               placeholder="Search fresh products..."
+                               className="flex-1 bg-transparent text-base md:text-lg font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none"
+                             />
+                             {searchTerm && (
+                               <span className="text-xs font-semibold uppercase tracking-wide text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                                 {filteredProducts.length} match{filteredProducts.length === 1 ? '' : 'es'}
+                               </span>
+                             )}
+                           </div>
+                         </div>
+                       </div>
+                     </div>
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
               <p className="font-medium">API Error:</p>
