@@ -4,17 +4,18 @@ import { useLocation } from 'react-router-dom';
 import ProductCard, { ProductProps } from '../components/ProductCard';
 import ChatWidget from '../components/ChatWidget';
 import { productAPI } from '@/api/modules/products';
+import { extractProductImage } from '@/lib/image';
 
-// Local images as fallback
+// Local fallback images
 const LOCAL_IMAGES = [
   '/images/1.jpeg',
-  '/images/2.jpeg', 
+  '/images/2.jpeg',
   '/images/3.jpeg',
   '/images/4.jpg',
   '/images/5.jpg',
   '/images/6.jpg',
   '/images/7.jpg',
-  '/images/8.jpg'
+  '/images/8.jpg',
 ];
 
 const Products = () => {
@@ -27,24 +28,17 @@ const Products = () => {
     return params.get('search') || '';
   });
 
-  // Helper function to get a local image
-  const getLocalImage = (index: number) => {
-    return LOCAL_IMAGES[index % LOCAL_IMAGES.length];
-  };
+  // Pick fallback image
+  const getLocalImage = (index: number) =>
+    LOCAL_IMAGES[index % LOCAL_IMAGES.length];
 
-  // Fetch products using the API service
+  // Fetch products
   const fetchProducts = async () => {
     try {
       setLoading(true);
       setError('');
 
-      console.log('Fetching products from API...');
-      
-      // Try to get products from the API service
       const result = await productAPI.list();
-      
-      console.log('API Response:', result); // Debug log
-      
 
       const rawData = Array.isArray(result)
         ? result
@@ -52,145 +46,34 @@ const Products = () => {
         ? result.data
         : [];
 
-      // If no data from API, use mock data
       if (rawData.length === 0) {
-        console.log('No data from API, using mock data');
-        const mockProducts: ProductProps[] = [
-          {
-            id: '1',
-            name: 'Toor Dal / kandipappu',
-            price: 110.00,
-            originalPrice: 140.00,
-            image: '/images/1.jpeg',
-            weight: '1kg',
-            isNew: false,
-            isOnSale: true,
-            isSoldOut: false,
-          },
-          {
-            id: '2',
-            name: 'Urad Gola White / Gundu Minapappu',
-            price: 110.00,
-            originalPrice: 110.00,
-            image: '/images/2.jpeg',
-            weight: '1kg',
-            isNew: false,
-            isOnSale: false,
-            isSoldOut: false,
-          },
-          {
-            id: '3',
-            name: 'Moong Dal (pesarapappu)',
-            price: 90.00,
-            originalPrice: 90.00,
-            image: '/images/3.jpeg',
-            weight: '500g',
-            isNew: false,
-            isOnSale: false,
-            isSoldOut: false,
-          },
-          {
-            id: '4',
-            name: 'Chana Dal / Chanagappu',
-            price: 70.00,
-            originalPrice: 80.00,
-            image: '/images/4.jpg',
-            weight: '1kg',
-            isNew: false,
-            isOnSale: true,
-            isSoldOut: false,
-          },
-          {
-            id: '5',
-            name: 'Green Moong Whole / pesarlu',
-            price: 75.00,
-            originalPrice: 90.00,
-            image: '/images/5.jpg',
-            weight: '500g',
-            isNew: false,
-            isOnSale: true,
-            isSoldOut: false,
-          },
-          {
-            id: '6',
-            name: 'Black Brown Chana / Senagalu',
-            price: 35.00,
-            originalPrice: 44.00,
-            image: '/images/6.jpg',
-            weight: '250g',
-            isNew: false,
-            isOnSale: true,
-            isSoldOut: false,
-          },
-          {
-            id: '7',
-            name: 'Tasting Salt / Ajinamato',
-            price: 30.00,
-            originalPrice: 30.00,
-            image: '/images/7.jpg',
-            weight: '200g',
-            isNew: false,
-            isOnSale: false,
-            isSoldOut: true,
-          },
-          {
-            id: '8',
-            name: 'Everest Tikhalal Powder',
-            price: 45.00,
-            originalPrice: 45.00,
-            image: '/images/8.jpg',
-            weight: '100g',
-            isNew: false,
-            isOnSale: false,
-            isSoldOut: false,
-          },
-        ];
-        setProducts(mockProducts);
+        setProducts([]);
         return;
       }
 
-      // Map and clean data
       const formatted: ProductProps[] = rawData.map((item: any, index: number) => {
-        console.log('Processing item:', item); // Debug log
-        
-        // Handle different possible image field structures
-        let imageUrl = '';
-        
-        if (item.image && typeof item.image === 'string') {
-          // Direct image URL
-          imageUrl = item.image.startsWith('http') 
-            ? item.image 
-            : `/${item.image}`;
-        } else if (item.images && Array.isArray(item.images) && item.images.length > 0) {
-          // Images array - take the first image
-          const firstImage = item.images[0];
-          if (typeof firstImage === 'string') {
-            imageUrl = firstImage.startsWith('http') 
-              ? firstImage 
-              : `/${firstImage}`;
-          } else if (firstImage && firstImage.url) {
-            imageUrl = firstImage.url.startsWith('http') 
-              ? firstImage.url 
-              : `/${firstImage.url}`;
-          }
-        } else if (item.image_url) {
-          // Alternative field name
-          imageUrl = item.image_url.startsWith('http') 
-            ? item.image_url 
-            : `/${item.image_url}`;
-        }
-        
-        // Fallback to local image if no image found
-        if (!imageUrl) {
-          imageUrl = getLocalImage(index);
-        }
+        console.log("🟦 PRODUCT ITEM:", item);
+
+        // Backend already returns full URL
+        const backendImage = item.image || null;
+
+        const resolvedImage =
+          backendImage ||
+          extractProductImage(item) ||
+          getLocalImage(index);
 
         return {
           id: item.id || item.product_id || String(index + 1),
           name: item.name || item.title || 'Unnamed Product',
+
+          // FINALLY the correct image
+          image: resolvedImage,
+
           price: Number(item.price || item.sale_price || 0),
-          originalPrice: item.original_price ? Number(item.original_price) : undefined,
-          image: imageUrl,
+          originalPrice: item.original_price
+            ? Number(item.original_price)
+            : undefined,
+
           weight: item.weight || item.quantity || 'N/A',
           isNew: item.is_new || false,
           isOnSale: item.is_on_sale || false,
@@ -198,66 +81,15 @@ const Products = () => {
         };
       });
 
-      console.log('Formatted products:', formatted); // Debug log
       setProducts(formatted);
     } catch (err: any) {
-      console.error('Error fetching products:', err); // Debug log
       setError(err.message || 'Something went wrong');
-      
-      // Use mock data as fallback on error
-      console.log('Using mock data as fallback due to API error');
-      const mockProducts: ProductProps[] = [
-        {
-          id: '1',
-          name: 'Toor Dal / kandipappu',
-          price: 110.00,
-          originalPrice: 140.00,
-          image: '/images/1.jpeg',
-          weight: '1kg',
-          isNew: false,
-          isOnSale: true,
-          isSoldOut: false,
-        },
-        {
-          id: '2',
-          name: 'Urad Gola White / Gundu Minapappu',
-          price: 110.00,
-          originalPrice: 110.00,
-          image: '/images/2.jpeg',
-          weight: '1kg',
-          isNew: false,
-          isOnSale: false,
-          isSoldOut: false,
-        },
-        {
-          id: '3',
-          name: 'Moong Dal (pesarapappu)',
-          price: 90.00,
-          originalPrice: 90.00,
-          image: '/images/3.jpeg',
-          weight: '500g',
-          isNew: false,
-          isOnSale: false,
-          isSoldOut: false,
-        },
-        {
-          id: '4',
-          name: 'Chana Dal / Chanagappu',
-          price: 70.00,
-          originalPrice: 80.00,
-          image: '/images/4.jpg',
-          weight: '1kg',
-          isNew: false,
-          isOnSale: true,
-          isSoldOut: false,
-        },
-      ];
-      setProducts(mockProducts);
     } finally {
       setLoading(false);
     }
   };
 
+  // Sync search with URL
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const searchValue = params.get('search') || '';
@@ -268,20 +100,7 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  // Delete product
-  const handleDelete = async (id: string) => {
-    try {
-      const confirmed = window.confirm('Are you sure you want to delete this product?');
-      if (!confirmed) return;
-
-      // Use the API service for deletion
-      // optional: add admin delete later via API
-      fetchProducts(); // Refresh
-    } catch (err: any) {
-      alert(err.message);
-    }
-  };
-
+  // Filter by search
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -300,39 +119,37 @@ const Products = () => {
           <div className="flex flex-wrap items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold mb-2 md:mb-0">All Products</h2>
 
-           <div className="mt-8 flex justify-center px-4 sm:px-0">
-                         <div className="relative w-full max-w-2xl group">
-                           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 opacity-60 blur-xl group-focus-within:opacity-80 transition-opacity"></div>
-                           <div className="relative flex items-center gap-3 rounded-full bg-white/95 backdrop-blur border-2 border-green-100 shadow-[0_10px_35px_rgba(34,197,94,0.2)] focus-within:border-green-400 focus-within:shadow-[0_12px_45px_rgba(34,197,94,0.28)] px-5 py-3">
-                             <Search className="text-green-600" size={20} />
-                             <input
-                               type="text"
-                               value={searchTerm}
-                               onChange={(e) => setSearchTerm(e.target.value)}
-                               placeholder="Search fresh products..."
-                               className="flex-1 bg-transparent text-base md:text-lg font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none"
-                             />
-                             {searchTerm && (
-                               <span className="text-xs font-semibold uppercase tracking-wide text-green-600 bg-green-50 px-3 py-1 rounded-full">
-                                 {filteredProducts.length} match{filteredProducts.length === 1 ? '' : 'es'}
-                               </span>
-                             )}
-                           </div>
-                         </div>
-                       </div>
-                     </div>
+            <div className="mt-8 flex justify-center px-4 sm:px-0">
+              <div className="relative w-full max-w-2xl group">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-emerald-500 to-lime-400 opacity-60 blur-xl group-focus-within:opacity-80 transition-opacity"></div>
+                <div className="relative flex items-center gap-3 rounded-full bg-white/95 backdrop-blur border-2 border-green-100 shadow-lg px-5 py-3">
+                  <Search className="text-green-600" size={20} />
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search fresh products..."
+                    className="flex-1 bg-transparent text-base md:text-lg font-medium text-gray-800 placeholder:text-gray-400 focus:outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
               <p className="font-medium">API Error:</p>
               <p>{error}</p>
-              <p className="text-sm mt-2">Using mock data as fallback.</p>
             </div>
           )}
 
           {loading && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[...Array(8)].map((_, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden animate-pulse">
+                <div
+                  key={index}
+                  className="bg-white rounded-lg shadow-sm overflow-hidden animate-pulse"
+                >
                   <div className="h-48 md:h-56 bg-gray-200"></div>
                   <div className="p-4 space-y-3">
                     <div className="h-4 bg-gray-200 rounded w-3/4"></div>
@@ -348,14 +165,13 @@ const Products = () => {
           {!loading && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <div key={product.id}>
-                  <ProductCard {...product} />
-                </div>
+                <ProductCard key={product.id} {...product} />
               ))}
             </div>
           )}
         </div>
       </main>
+
       <ChatWidget />
     </div>
   );

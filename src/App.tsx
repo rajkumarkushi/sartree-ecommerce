@@ -2,7 +2,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from '@/contexts/CartContext';
 import { AuthProvider } from '@/contexts/AuthContext';
 
@@ -28,7 +28,7 @@ import ChangePassword from "./pages/ChangePassword";
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Cart from './components/Cart'; // ✅ NEW
+import Cart from './components/Cart';
 
 const queryClient = new QueryClient();
 
@@ -40,14 +40,14 @@ const App = () => (
           <div className="flex flex-col min-h-screen overflow-hidden">
             <Toaster />
             <Sonner />
-            <HashRouter>
+            <BrowserRouter>
               <Header />
               <main className="flex-grow relative">
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/:id" element={<ProductDetails />} />
-                  <Route path="/cart" element={<Cart />} /> {/* ✅ NEW */}
+                  <Route path="/cart" element={<Cart />} />
                   <Route path="/signin" element={<SignIn />} />
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -78,11 +78,10 @@ const App = () => (
                   <Route path="/addresses" element={<Addresses />} />
                   <Route path="/order-placed/:orderId" element={<OrderPlaced />} />
                   <Route path="/create-order" element={<CreateOrder />} />
-                  {/* Removed catch-all 404 route */}
                 </Routes>
               </main>
               <Footer />
-            </HashRouter>
+            </BrowserRouter>
           </div>
         </CartProvider>
       </AuthProvider>

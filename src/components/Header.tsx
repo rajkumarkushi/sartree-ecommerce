@@ -67,12 +67,13 @@ const Header: React.FC = () => {
             {showMenu ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <Link
-            to="/"
-            className="text-xl font-bold text-green-700 hover:text-green-800"
-          >
-            SAR TREE
-          </Link>
+         <h3 className="text-xl font-semibold mb-4"> <Link to="/" className="flex-shrink-0">
+                                <img 
+                                  src="/images/logo.png" 
+                                  alt="SAR TREE INDUSTRIES" 
+                                  className="h-12 w-auto object-contain"
+                                />
+                              </Link></h3>
         </div>
 
         {/* Center: Nav (desktop) */}

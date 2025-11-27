@@ -6,6 +6,7 @@ import HeroSlider from '../components/HeroSlider';
 import ProductCard, { ProductProps } from '../components/ProductCard';
 import { config } from '../config';
 import { productAPI } from '@/api/modules/products';
+import { extractProductImage, resolveImageUrl } from '@/lib/image';
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth();
@@ -33,17 +34,25 @@ const Home = () => {
         clearTimeout(timeoutId);
         console.log("Products loaded:", data);
         const list = Array.isArray(data) ? data : (data?.data && Array.isArray(data.data) ? data.data : []);
-        setProducts(list.map((p: any) => ({
-          id: p.id,
-          name: p.name || p.title || `Product ${p.id}`,
-          price: Number(p.price ?? p.finalPrice ?? p.sale_price ?? 0),
-          originalPrice: Number(p.original_price ?? p.mrp ?? p.price) || undefined,
-          image: p.image || p.thumbnail || (p.images && p.images[0]) || '/images/1.jpeg',
-          weight: p.weight || p.size || '1kg',
-          isNew: !!p.is_new,
-          isOnSale: !!p.is_on_sale,
-          isSoldOut: !!p.is_sold_out,
-        })));
+        setProducts(list.map((p: any, index: number) => {
+          const imageUrl =
+            extractProductImage(p) ||
+            resolveImageUrl(p.media_path) ||
+            resolveImageUrl(p.featured_image) ||
+            `/images/${(index % 8) + 1}.${index % 2 === 0 ? "jpeg" : "jpg"}`;
+
+          return {
+            id: p.id,
+            name: p.name || p.title || `Product ${p.id}`,
+            price: Number(p.price ?? p.finalPrice ?? p.sale_price ?? 0),
+            originalPrice: Number(p.original_price ?? p.mrp ?? p.price) || undefined,
+            image: imageUrl,
+            weight: p.weight || p.size || '1kg',
+            isNew: !!p.is_new,
+            isOnSale: !!p.is_on_sale,
+            isSoldOut: !!p.is_sold_out,
+          };
+        }));
         setLoading(false);
       })
       .catch((error) => {

@@ -4,6 +4,7 @@ import { Minus, Plus, Heart } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
 import { productAPI } from '@/api/modules/products';
+import { extractProductImage, resolveImageUrl } from '@/lib/image';
 
 interface ProductImage {
   id: number;
@@ -95,16 +96,16 @@ const ProductDetails = () => {
   if (data) {
     let imagesArr: ProductImage[] = [];
     if (Array.isArray(data.images) && data.images.length > 0) {
-      imagesArr = data.images.map((img: any, index: number) => ({
-        id: img?.id ?? index,
-        url: img?.url || img?.name || img || "/images/default.jpg",
-      }));
-    } else if (data.image) {
-      imagesArr = [{ id: 1, url: data.image }];
-    } else if (data.image_url) {
-      imagesArr = [{ id: 1, url: data.image_url }];
+      imagesArr = data.images.map((img: any, index: number) => {
+        const candidate = typeof img === "string" ? img : img?.url || img?.name || img?.path;
+        return {
+          id: img?.id ?? index,
+          url: resolveImageUrl(candidate) || "/images/default.jpg",
+        };
+      });
     } else {
-      imagesArr = [{ id: 1, url: "/images/default.jpg" }];
+      const single = extractProductImage(data, "/images/default.jpg");
+      imagesArr = [{ id: 1, url: single || "/images/default.jpg" }];
     }
 
     const mappedProduct: Product = {

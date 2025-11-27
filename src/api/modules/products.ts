@@ -16,22 +16,21 @@ function apiPath(pathNoV1: string) {
 }
 
 export const productAPI = {
-  // Fetch list of products
   list: async (params?: any) => {
-    // returns axios response promise
     return client.get(apiPath("product"), { params }).then((r) => r.data);
   },
 
-  // Fetch single product by id
   getProduct: async (id: string | number) => {
     if (id == null) throw new Error("Product id is required");
     return client.get(apiPath(`product/${id}`)).then((r) => r.data);
   },
+};
+
 
   // optional helpers (if you need)
   // create: (payload: any) => client.post(apiPath('product'), payload),
   // update: (id: string|number, payload: any) => client.put(apiPath(`product/${id}`), payload),
   // remove: (id: string|number) => client.delete(apiPath(`product/${id}`)),
-};
+
 
 export default productAPI;
