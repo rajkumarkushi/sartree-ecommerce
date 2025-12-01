@@ -14,7 +14,8 @@ import SignUp from "./pages/Auth/SignUp";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Profile from "./pages/ProfileDetails";
 import About from "./pages/About";
-import Blogs from "./pages/Blogs";
+import Blogs from "./pages/BlogPage";
+import BlogDetails from "./pages/BlogDetails";
 import Contact from "./pages/Contact";
 import ProtectedRoute from "./components/ProtectedRoute";
 import HelpSupport from "./pages/HelpSupport";
@@ -61,6 +62,7 @@ const App = () => (
                   />
                   <Route path="/about" element={<About />} />
                   <Route path="/blog" element={<Blogs />} />
+                  <Route path="/blog/:slug" element={<BlogDetails />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/help-support" element={<HelpSupport />} />
                   <Route path="/order-history" element={<OrderHistory />} />
